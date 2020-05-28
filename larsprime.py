@@ -5,7 +5,7 @@
 # works via algorithims which do not use randomness to reduce errors
 
 
-import numpy as np
+#import numpy as np
 
 
 def SieveOfEratosthenes(n):  
@@ -30,12 +30,14 @@ def SieveOfEratosthenes(n):
      if prime[p]: 
        size+=1 
 
-   vv = np.zeros(size, dtype='int64') 
+   #vv = np.zeros(size, dtype='int64') 
+   vv = []
    count = 0  
    # Print all prime numbers  
    for p in range(2, n+1):  
        if prime[p]:  
-           vv[count] = p  
+           #vv[count] = p  
+           vv.append(p)
            count+=1 
    return vv 
 
