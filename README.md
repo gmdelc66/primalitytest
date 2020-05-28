@@ -13,7 +13,7 @@ To use:
 from primetest import *
 
 larsprimetest(1009)
-# True
+  True
 
 lars_next_prime(1013)
-# 1019
+  1019
