@@ -166,3 +166,33 @@ def lars_next_prime(hm):
    while larsprimetest(hm) == False:
       hm += 2
    return hm
+
+
+""" This modulde can reduce any number into it's composites. It's a non
+    prime factorization module provided for those interested in seeing 
+    how numbers can be reduced to composite numbers only. Even prime 
+    numbers
+"""
+def try_nonfactorization_mod(hm):
+  vv = []
+  num = hm
+  cr = pow(num,1,1<<(num).bit_length()-1)
+  while num > 1 and cr != 0:
+    while cr != 0:
+      prevcr = cr
+      cr = num%cr     
+    vv.append(prevcr)
+    num = (num // prevcr) -1
+    cr = num%(1<<(num).bit_length()-1)
+  vv.append(num)
+  return vv
+
+
+""" The following module recreates the array created by
+    try_nonfactorization_mod
+"""
+def build_composite_number(hm):
+   si = hm[-1]
+   for x in range(len(hm)-2, -1, -1):
+      si = si * hm[x] + hm[x]
+   return si
