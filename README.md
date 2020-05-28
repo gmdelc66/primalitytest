@@ -1,5 +1,5 @@
 # primalitytest
-Test the primality of numbers ( non probabilistic test)  ( numpy is required to use this library)
+Test the primality of numbers ( non probabilistic test)  
 
 This is a non probabilistic primality test. It preforms fermat's test from the bitlength of the number down to 2. 
 It then uses my algorithim to determine whether a number is composed of small primes. 
