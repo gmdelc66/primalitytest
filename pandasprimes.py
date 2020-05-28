@@ -1,6 +1,7 @@
 # This creates a pandas table to show how this primality test works
 # It is useful for seeing how the determination of primes are made
-
+# The first numbers are prime, and the second numbers are an offset
+# from the prime numbers. The default offset is 12 away.
 
 import pandas as pd
 import numpy as np
