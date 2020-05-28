@@ -23,7 +23,9 @@ The following is a composite reduction method. Instead of reducing a number to p
 numbers only. It is included for those interested in seeing non prime factorization reduction of numbers:
 
 try_nonfactorization_mod(1009)
+
 [1, 16, 2, 2, 2, 2, 2]
 
 build_composite_number([1, 16, 2, 2, 2, 2, 2]) 
+
 1009
