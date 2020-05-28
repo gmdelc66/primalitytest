@@ -17,3 +17,13 @@ larsprimetest(1009)
 
 lars_next_prime(1013)
 ##  1019
+
+
+The following is a composite reduction method. Instead of reducing a number to primes, it reduced them to composite
+numbers only. It is included for those interested in seeing non prime factorization reduction of numbers:
+
+try_nonfactorization_mod(1009)
+[1, 16, 2, 2, 2, 2, 2]
+
+build_composite_number([1, 16, 2, 2, 2, 2, 2]) 
+1009
