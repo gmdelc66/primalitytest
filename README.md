@@ -10,7 +10,7 @@ works via algorithims which do not use randomness to reduce errors
 
 To use:
 
-from primetest import *
+from larsprime import *
 
 larsprimetest(1009)
 ##  True
