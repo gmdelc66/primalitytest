@@ -5,7 +5,7 @@
 # works via algorithims which do not use randomness to reduce errors
 
 
-import numpy as np
+#import numpy as np
 
 
 def SieveOfEratosthenes(n):  
@@ -30,14 +30,14 @@ def SieveOfEratosthenes(n):
      if prime[p]: 
        size+=1 
 
-   vv = np.zeros(size, dtype='int64') 
-   #vv = []
+   #vv = np.zeros(size, dtype='int64') 
+   vv = []
    count = 0  
    # Print all prime numbers  
    for p in range(2, n+1):  
        if prime[p]:  
-           vv[count] = p  
-           #vv.append(p)
+           #vv[count] = p  
+           vv.append(p)
            count+=1 
    return vv 
 
@@ -78,7 +78,7 @@ def larsprimetest(hm):
    for x in primereducer[0:3]:
      if hm == int(x):   
         return True
-   for x in np.flip(primereducer):
+   for x in list(reversed(primereducer)):
      if  pow(int(x),hm-1,hm)%hm != 1:   
         return False
    for x in larstest:
