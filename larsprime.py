@@ -196,3 +196,47 @@ def build_composite_number(hm):
    for x in range(len(hm)-2, -1, -1):
       si = si * hm[x] + hm[x]
    return si
+
+
+""" The following is a naive implementation of finding prime numbers based on the code above.
+    It shows that all factors of a number can be found be squaring a number until they are all
+    found. The problem is that these squares get big and unless a super fast modular reduction
+    algorithim is found, it is slow to find the factors for big numbers. But at least it shows 
+    the theory is sound, it's just the practability is not there since we don't have a fast modular
+    reduction algorithm. This prints at each factor found and shows the div'd or squared number it used
+    to find the prime factor. It is for educational purposes for how my method works. There are much faster
+    factorization algorithms that don't rely on modular reduction, for one of the fastest, check out:
+    https://www.alpertron.com.ar/ECM.HTM
+"""
+
+def get_factors(hm, offset=-1):
+   num = hm
+   vv = []
+   while larsprimetest(num // 1) != True:
+     print(vv, num)
+     a = find_prime_evens(num, offset)
+     print(a)
+     if a[5] == 0:
+       vv.append(a[1])
+     elif a[5] == 2:
+       if num % 2 == 0:
+         vv.append(a[5])
+       else:
+         vv.append(a[3])
+     elif a[5] == 3:
+       if num % 2 == 0:
+          vv.append(2)
+       elif num % 3 == 0:
+          vv.append(3)
+       elif num % 5 == 0:
+          vv.append(5)
+       elif num % a[3] == 0:
+          vv.append(a[3])
+     else:
+       vv.append(a[5])
+     print(a)
+     num = num // vv[-1]
+   if larsprimetest(num):
+     vv.append(num)
+   print(vv)
+   return vv
