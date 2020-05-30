@@ -29,3 +29,14 @@ try_nonfactorization_mod(1009)
 build_composite_number([1, 16, 2, 2, 2, 2, 2]) 
 
 1009
+
+--------------
+
+
+You can use this module for factorization as well, but until a super fast modular reduction algorithm is found it is 
+not practical for use as there are faster factorization algorithms available, but i include it to show my theory is 
+sound for primality testing.
+
+get_factors(100973253376634432)
+
+Out[1496]: [2, 2, 2, 2, 2, 2, 5419, 54403, 5351609]
