@@ -69,6 +69,10 @@ def get_factor_lars_prime(hm, offset=-2):
      num = num // vv[-1]
      return vv
 
+""" This module test for primality, it is the prime focus for this code. A factorization module that uses it can be
+    found below
+"""
+
 def larsprimetest(hm):
    if hm == 1:
       return False
@@ -154,6 +158,9 @@ def build_prime_number(hm):
    for x in range(len(hm)):
      si = si * hm[x]
    return si
+
+""" This module will find the next prime for any number input
+"""
 
 def lars_next_prime(hm):
    if hm == 1:
