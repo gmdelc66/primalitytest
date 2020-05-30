@@ -55,3 +55,26 @@ Out[1502]: [29, 29, 29, 10099]
  get_factors(2**200-1)
  
  [3, 5, 11, 41, 5, 5, 17, 31, 101, 401, 251, 601, 1801, 8101, 4051, 61681, 2787601, 268501, 340801, 3173389601]
+ 
+ 
+ --------------------
+ 
+ Fuzzy Factor introduced. Example usage: fuzzy_factor(2 ** 1000-1) or fuzzy_factor(2 ** 1000-1, True)
+ 
+ From it's comments in the code section:
+ 
+   This module factors as best as it can. If a number is too slow for modular reduction, it gives the best possible
+   psuedoprime as an answer. This helps get an idea for the factors of very large numbers. Numbers that return
+   themselves are composed of very large primes that are to slow for modular reduction and until a faster modular
+   reduction technique is found by me or others, Use https://www.alpertron.com.ar/ECM.HTM to further reduce the
+   number.
+
+   What is *AMAZING* about fuzzy_factor. https://www.alpertron.com.ar/ECM.HTM cannot reduce 2 ** 1000-1, but using 
+   fuzzy_factor, you can take the psuedoprime components, plug them into ECM, and fully reduce 2 ** 1000-1 in a few
+   minutes, as fuzzy_factor reduces the number into psuedoprimes that can be reduced further by ECM instead of a
+   straight factorization of 2 ** 1000-1. Use fuzzy_factor(2 ** 1000-1, True) to get results back with whether the
+   number is prime (True) or psuedoprime (False). You can then plug the False numbers into ECM to reduce the number
+   into all of its factors. The default is False so you can use with build_prime_number() to build the original number 
+   from the fuzzy factors. You can also try this with 2 ** 500-1 and other numbers to see it's usefulness in combination
+   with other factorization engines.
+
