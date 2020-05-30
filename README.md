@@ -63,6 +63,13 @@ Out[1502]: [29, 29, 29, 10099]
  
  From it's comments in the code section:
  
+   Fuzzy factor was designed for finding psuedoprimes near powers of 2 numbers that can be reduced faster than a 
+   straight factorization using many differerent algotihims. For example, Try: fuzzy_factor(2 ** 1200-1, True) and 
+   you get an almost instantaneous result with only 3 numbers that are False (psuedoprime). You can plug these numbers
+   into PARI or ECM and they can factor the numbers faster than you can by using PARI and ECM to reduce just the
+   2 ** 1200-1 itself.  PARI can't seem to factor 2 ** 1200-1 after an hour run, so you can factor the number using fuzzy
+   factor then further reduce the psuedoprimes which it indicates and get the complete factorization for 2 ** 1200-1.
+ 
    This module factors as best as it can. If a number is too slow for modular reduction, it gives the best possible
    psuedoprime as an answer. This helps get an idea for the factors of very large numbers. Numbers that return
    themselves are composed of very large primes that are to slow for modular reduction and until a faster modular
