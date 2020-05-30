@@ -6,7 +6,7 @@ It then uses my algorithim to determine whether a number is composed of small pr
 If the fermat tests fail, then a prime should be found using my algorithm in the numer itself. If not the number
 is prime. I created a pandas table to view to look at to show how this method works. It is non probabalistic and 
 works via algorithims which do not use randomness to reduce errors and shows that all primes can be found be squaring
-a number
+a number until all factors are found
 
 
 To use:
