@@ -249,11 +249,18 @@ def get_factors(hm, offset=-1):
    return vv
 
 
-""" This module factors as best as it can. If a number is too slow for modular reduction, it gives the best possible
+""" Fuzzy factor was designed for finding psuedoprimes near powers of 2 numbers that can be reduced faster than a 
+   straight factorization using many differerent algotihims. For example, Try: fuzzy_factor(2**1200-1, True) and 
+   you get an almost instantaneous result with only 3 numbers that are False (psuedoprime). You can plug these numbers
+   into PARI or ECM and they can factor the numbers faster than you can by using PARI and ECM to reduce just the
+   2**1200-1 itself. 
+   
+   This module factors as best as it can. If a number is too slow for modular reduction, it gives the best possible
    psuedoprime as an answer. This helps get an idea for the factors of very large numbers. Numbers that return
    themselves are composed of very large primes that are to slow for modular reduction and until a faster modular
    reduction technique is found by me or others, Use https://www.alpertron.com.ar/ECM.HTM to further reduce the
-   number.
+   number. fuzzy_factor was designed for 2**numbers-1, and a newer version fuzzy_factor_any() will be introduced
+   here shortly as I'm making daily updates.
 
    What is *AMAZING* about fuzzy_factor. https://www.alpertron.com.ar/ECM.HTM cannot reduce 2**1000-1, but using 
    fuzzy_factor, you can take the psuedoprime components, plug them into ECM, and fully reduce 2*1000-1 in a few
