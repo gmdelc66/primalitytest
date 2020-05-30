@@ -69,7 +69,7 @@ def get_factor_lars_prime(hm, offset=-2):
      num = num // vv[-1]
      return vv
 
-""" This module test for primality, it is the prime focus for this code. A factorization module that uses it can be
+""" This module tests for primality, it is the prime focus for this code. A factorization module that uses it can be
     found below
 """
 
