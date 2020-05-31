@@ -342,7 +342,7 @@ def powers_nonfactorization_quantum_leap(hm):
     # 240
     240%128
     # 112
-    112^64
+    112%64
     # 48
     48%32
     # 16
