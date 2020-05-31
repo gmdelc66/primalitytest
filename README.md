@@ -18,6 +18,7 @@ Added fuzzy_factor_p2()
 
 Added fuzzy_factor_time_constrained()
 
+-------------
 
 To use:
 
