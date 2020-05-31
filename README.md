@@ -124,7 +124,9 @@ Out[1502]: [29, 29, 29, 10099]
     # 0
     
     With get_last_modulus_powers_of_two(1008) you will get the answer 16 immediately. This works for all numbers
-    walking down a modulus powwers of two tree without having to walk down the tree.
+    walking down a modulus powwers of two tree without having to walk down the tree. I would urge mathemeticians
+    to look for other shortcuts like this so I can speed up my other modulus reductions. I'm searching for them as
+    well
     
     In [2601]: get_last_modulus_powers_of_two(1008)                                                                                                
     Out[2601]: 16
