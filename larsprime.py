@@ -2,7 +2,10 @@
 # It then uses my algorithim to determine whether a number is composed of small primes. 
 # If the fermat tests fail, then a prime should be found using my algorithm in the numer itself. If not the number
 # is prime. I created a pandas table to view to look at to show how this method works. It is non probabalistic and 
-# works via algorithims which do not use randomness to reduce errors
+# works via algorithims which do not use randomness to reduce errors. I created a super fast modulus reduction
+# technique that doesn't have to walk the entire mod path down from a powers of a 2 and am looking to create the
+# same for other modulus reductions. I'm hoping other mathematicians will be interested and will do the same
+# it would greatly increase the speed of the method i use.
 
 
 from math import gcd
