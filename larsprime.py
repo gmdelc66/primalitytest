@@ -5,7 +5,7 @@
 # works via algorithims which do not use randomness to reduce errors
 
 
-#import numpy as np
+from math import gcd
 
 
 def SieveOfEratosthenes(n):  
