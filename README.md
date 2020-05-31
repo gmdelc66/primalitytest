@@ -139,7 +139,7 @@ Out[1502]: [29, 29, 29, 10099]
 ---------------
 
 """ Fuzzy factor was designed for finding psuedoprimes near powers of 2 numbers that can be reduced faster than a 
-   straight factorization using many differerent algotihims. For example, Try: fuzzy_factor(2 ** 1200-1, True) and 
+   straight factorization using many differerent algotihims. For example, Try: fuzzy_factorp2(2 ** 1200-1, True) and 
    you get an almost instantaneous result with only 3 numbers that are False (psuedoprime). You can plug these numbers
    into PARI or ECM and they can factor the numbers faster than you can by using PARI and ECM to reduce just the
    2 ** 1200-1 itself.  PARI can't seem to factor 2 ** 1200-1 after an hour run, so you can factor the number using fuzzy
@@ -153,7 +153,7 @@ Out[1502]: [29, 29, 29, 10099]
    What is *AMAZING* about fuzzy_factor. https://www.alpertron.com.ar/ECM.HTM cannot reduce 2 ** 1000-1, but using 
    fuzzy_factor, you can take the psuedoprime components, plug them into ECM, and fully reduce 2 ** 1000-1 in a few
    minutes, as fuzzy_factor reduces the number into psuedoprimes that can be reduced further by ECM instead of a
-   straight factorization of 2 ** 1000-1. Use fuzzy_factor(2 ** 1000-1, True) to get results back with whether the
+   straight factorization of 2 ** 1000-1. Use fuzzy_factorp2(2 ** 1000-1, True) to get results back with whether the
    number is prime (True) or psuedoprime (False). You can then plug the False numbers into ECM to reduce the number
    into all of its factors. The default is False so you can use with build_prime_number() to build the original number 
    from the fuzzy factors. You can also try this with 2 ** 500-1 and other numbers to see it's usefulness in combination
