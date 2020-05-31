@@ -303,3 +303,53 @@ def fuzzy_factor(hm, returnwithpsuedoprimeresults=False):
    print(vv)
    return vv
 
+""" This is the fastest way to get the last modulus instead of modding down an entire powers of two tree.
+    The only algorithims i've seen to do this actually walk down the tree. I found a shortcut and would 
+    urge other mathematicians to look at this and see if they can come up with a shortcut for other fast
+    modulus reduction routines. This is the fastest modulus reduction routine know to mankind that utilizes
+    a gcd trick. Use build_composite_number(vv) to rebuild your number after building the path down to
+    rebuild your number. For example:
+    In [2600]: build_composite_number(powers_factorization_quantum_leap(525672532516910347814982256648))                                             
+    Out[2600]: 525672532516910347814982256648
+    
+    build_composite_number is included in this library. Just use:
+    from larsprime import * 
+    to use it.
+"""
+
+def powers_nonfactorization_quantum_leap(hm):
+  num=hm
+  vv = []
+  while num > 2:
+    prevcr = (1<<(num.bit_length()))
+    numgcd = gcd(num,prevcr)
+    num = (num // numgcd) -1
+    vv.append(numgcd)
+  if num != 0:
+    vv.append(num)
+  return vv
+
+
+""" Fastest modulus reduction of powers of two which i discovered while studying primes. Other shortcuts may 
+    exist i'm looking for them too to speed up my modulus reductions above. This is the same as doing the
+    following:
+    1008%512
+    # 496
+    496%256
+    # 240
+    240%128
+    # 112
+    112^64
+    # 48
+    48%32
+    # 16
+    16%16 
+    # 0
+    With get_last_modulus_powers_of_two(1008) you will get the answer 16 immediately. This works for all numbers
+    walking down a modulus powwers of two tree without having to walk down the tree.
+    
+    In [2601]: get_last_modulus_powers_of_two(1008)                                                                                                
+    Out[2601]: 16
+"""
+def get_last_modulus_powers_of_two(hm):
+   return gcd(hm, 1<<hm.bit_length())
