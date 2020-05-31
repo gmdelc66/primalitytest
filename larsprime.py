@@ -513,7 +513,7 @@ def fuzzy_factor_time_constrained(hm, returnwithpsuedoprimeresults=False):
      elif returnwithpsuedoprimeresults == True:
         vv.append((b, larsprimetest(b)))
      num = num // b
-     if isprime(num):
+     if larsprimetest(num):
         break
    if larsprimetest(num):
      if returnwithpsuedoprimeresults == False:
