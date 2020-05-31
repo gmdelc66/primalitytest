@@ -5,7 +5,7 @@
 # works via algorithims which do not use randomness to reduce errors. I created a super fast modulus reduction
 # technique that doesn't have to walk the entire mod path down from a powers of a 2 and am looking to create the
 # same for other modulus reductions. I'm hoping other mathematicians will be interested and will do the same
-# it would greatly increase the speed of the method i use.
+# it would greatly increase the speed of the method i use. The reduction i created is get_last_modulus_powers_of_two()
 
 
 from math import gcd
