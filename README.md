@@ -11,8 +11,11 @@ a number until all factors are found
 ** UPDATE MAY 31st 2020 **
 
 Added fast modulus reduction technique for modulus powers of 2: get_last_modulus_powers_of_two()
+
 Added fast modulus reduction technique to rebuild an entire number: powers_nonfactorization_quantum_leap()
+
 Added fuzzy_factor_p2()
+
 Added fuzzy_factor_time_constrained()
 
 
