@@ -8,7 +8,7 @@
 # it would greatly increase the speed of the method i use. The reduction i created is get_last_modulus_powers_of_two()
 
 
-from math import gcd
+import math
 
 
 def SieveOfEratosthenes(n):  
@@ -325,7 +325,7 @@ def powers_nonfactorization_quantum_leap(hm):
   vv = []
   while num > 2:
     prevcr = (1<<(num.bit_length()))
-    numgcd = gcd(num,prevcr)
+    numgcd = math.gcd(num,prevcr)
     num = (num // numgcd) -1
     vv.append(numgcd)
   if num != 0:
@@ -355,7 +355,7 @@ def powers_nonfactorization_quantum_leap(hm):
     Out[2601]: 16
 """
 def get_last_modulus_powers_of_two(hm):
-   return gcd(hm, 1<<hm.bit_length())
+   return math.gcd(hm, 1<<hm.bit_length())
 
 
 """ Fuzzy factor was designed for finding psuedoprimes near powers of 2 numbers that can be reduced faster than a 
@@ -591,3 +591,41 @@ def get_factor_lars_prime2(hm, offset=-1):
        vv.append(a[5])
      num = num // vv[-1]
      return vv
+
+"""Are there faster techiniques or shortcut for MOD'ing large numbers using pow(x,y,n)
+
+   I created the following to find primes in numbers but using powers of two to increae 
+   the size of the number until the gcd of the original number and and a larger number mod 
+   of the powers of two up have a gcd answer greater than 1. What i'm looking for is if a 
+   mathemetician knows of any tricks to make this technique faster as it could be quite useful 
+   for finding prime factors. Any indications as to why or why not a shortcut doesn't exist would be helpful
+"""
+
+def search_for_prime(hm):
+   for x in range(2,500):
+       answer = gcd_mod_find(hm**x, hm)
+       if answer != 1:
+           break
+   return answer
+
+def gcd_mod_find(hm, find):
+    prevcr = hm
+    getcr =  hm%(1<<(hm).bit_length()-1)
+    bitlength = hm.bit_length()//2
+    count=0
+    found = False
+    while getcr != 0 and getcr != 1 and bitlength > count:
+       count+=1
+       temp = hm%getcr
+       prevcr = getcr
+       getcr = temp
+       answer = math.gcd(prevcr, find)
+       if answer != 1:
+          #print(f"{answer} found at {prevcr}")
+          found = True
+          break
+    if found == True:
+       return answer
+    else:
+       return 1 
+
