@@ -111,7 +111,7 @@ def primality_test_miller_rabin_non_random(a):
     for x in list(reversed(primereducer)):  
         b = x   # random.randint(2, a - 1)
         j = 0
-        z = pow_mod(b, m, a)
+        z = pow(b, m, a)
         while not ((j == 0 and z == 1) or z == a - 1):
             if (j > 0 and z == 1 or j + 1 == lb):
                 return False
@@ -119,27 +119,6 @@ def primality_test_miller_rabin_non_random(a):
             z = (z * z) % a
 
     return True
-
-
-""" Included since the miller rabin test uses these pow_mod, rather than pow(). to_bits() and pow_mod()
-"""
-def to_bits(k):
-    """Return a generator that returns the bits of k, starting from the
-    least significant bit, using True for 1s, and False for 0s.
-    """
-    k_binary = bin(k)[2:]
-    return (bit == '1' for bit in k_binary[::-1])
-
-
-def pow_mod(a, k, m):
-    """Return a^k mod m."""
-    r = 1
-    b = a
-    for bit in to_bits(k):
-        if bit:
-            r = (r * b) % m
-        b = (b * b) % m
-    return r
 
 """ Xploder iterates up a powers of two tree -1
 """
