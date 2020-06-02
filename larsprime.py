@@ -121,6 +121,29 @@ def primality_test_miller_rabin_non_random(a):
     return True
 
 
+""" Included since the miller rabin test uses these pow_mod, rather than pow(). to_bits() and pow_mod()
+"""
+def to_bits(k):
+    """Return a generator that returns the bits of k, starting from the
+    least significant bit, using True for 1s, and False for 0s.
+    """
+    k_binary = bin(k)[2:]
+    return (bit == '1' for bit in k_binary[::-1])
+
+
+def pow_mod(a, k, m):
+    """Return a^k mod m."""
+    r = 1
+    b = a
+    for bit in to_bits(k):
+        if bit:
+            r = (r * b) % m
+        b = (b * b) % m
+    return r
+
+""" Xploder iterates up a powers of two tree -1
+"""
+
 def Xploder(s, iter=1):
   return ((s+1) << (iter))-1
 
