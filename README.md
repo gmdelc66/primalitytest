@@ -18,6 +18,10 @@ Added fuzzy_factor_p2()
 
 Added fuzzy_factor_time_constrained()
 
+**  UPDATE JUNE 1st 2020 **
+
+Added non probabalistic miller_rabin Primality Test: primality_test_miller_rabin_non_random(num)
+
 -------------
 
 To use:
