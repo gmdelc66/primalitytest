@@ -98,6 +98,29 @@ def larsprimetest(hm):
    return True
 
 
+""" This is a non probalistic version of the miller rabin test. It uses Seives up to the bitlength of the number
+    and (m) div'd by the last modulus of it's powers of two.
+"""
+def primality_test_miller_rabin_non_random(a):
+    m = a - 1
+    lb = lars_last_modulus_powers_of_two(m)
+    m = (m // lb )
+    if a == 2:
+      return True
+    primereducer = SieveOfEratosthenes(a.bit_length()) 
+    for x in list(reversed(primereducer)):  
+        b = x   # random.randint(2, a - 1)
+        j = 0
+        z = pow_mod(b, m, a)
+        while not ((j == 0 and z == 1) or z == a - 1):
+            if (j > 0 and z == 1 or j + 1 == lb):
+                return False
+            j += 1
+            z = (z * z) % a
+
+    return True
+
+
 def Xploder(s, iter=1):
   return ((s+1) << (iter))-1
 
@@ -348,13 +371,13 @@ def powers_nonfactorization_quantum_leap(hm):
     # 16
     16%16 
     # 0
-    With get_last_modulus_powers_of_two(1008) you will get the answer 16 immediately. This works for all numbers
+    With lars_last_modulus_powers_of_two(1008) you will get the answer 16 immediately. This works for all numbers
     walking down a modulus powwers of two tree without having to walk down the tree.
     
-    In [2601]: get_last_modulus_powers_of_two(1008)                                                                                                
+    In [2601]: lars_last_modulus_powers_of_two(1008)                                                                                                
     Out[2601]: 16
 """
-def get_last_modulus_powers_of_two(hm):
+def lars_last_modulus_powers_of_two(hm):
    return math.gcd(hm, 1<<hm.bit_length())
 
 
