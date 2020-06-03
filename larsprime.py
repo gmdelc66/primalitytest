@@ -617,4 +617,55 @@ def get_factor_lars_prime2(hm, offset=-1):
      num = num // vv[-1]
      return vv
 
+""" This primemaker is unique in the sense that it uses a feature of primes to find a prime probable random number.
+    All prime numbers * 2 have a lars_last_modulus_powers_of_two() of 2. I search for a random number with this
+    feature. You will never find a prime number that doesn't pass this test. I then div mod the number and use fermats 
+    test. If an isprime test returns True, but the number * 2, using lars_last_modulus_powers_of_two() returns a 
+    result other than two, then the number is not trully prime. I then use a fermat test and this test is *almost* 
+    always the number one as is shown in the 2nd to last number in the result.  ( The second number is the  prime 
+    number found, and the second to last number is the pow test count):  
+
+    larsrandomprimemaker(2**10,2**20, withstats=True)
+    [846574, 423287, True, 1, 2, 1, True]
+
+    The third two last number, 2 in this case, is the iterations it took to find a number with this feature. Finally,
+    Since fermats test can fail ( like with the number 341), we finally test with a primetest on the number, if it 
+    passes, the algorithm has found a prime and we return that result for use.
+
+    Usage:
+      In [6834]: larsrandomprimemaker(2**100,2**150)                                                                                                                         
+      Out[6834]: 541408456740197577823198243314039608874260987
+
+"""
+
+
+def larsrandomprimemaker(smallend, largeend, withstats=False):
+   if smallend % 2 == 0:
+      smallend = smallend - 1
+   if largeend % 2 == 0:
+      largeend = largeend - 1
+   count = 0
+   count2 = 0
+   while True:
+     powtest = False
+     count += 1
+
+     primetest = True
+     num = random.randrange(smallend,largeend,2)
+     while lars_last_modulus_powers_of_two(num-1) != 2 and (num//2) %2 == 1 and pow(2, ((num//2)-1), num//2) != 1:
+        num = random.randrange(smallend,largeend,2)
+
+     if  pow(2, ((num//2)-1), num//2) == 1:
+        count2 += 1
+        powtest = True
+     
+     if larsprimetest(num//2) == True and primetest == True:
+        break
+     else:
+        continue
+   if withstats == True:
+      return [num, num//2, larsprimetest(num//2), lars_last_modulus_powers_of_two(num-1), count, count2, powtest]
+   elif withstats == False:
+      return num//2
+
 
