@@ -22,6 +22,20 @@ Added fuzzy_factor_time_constrained()
 
 Added non probabalistic miller_rabin Primality Test: primality_test_miller_rabin_non_random(num)
 
+**  UPDATE JUNE 3rd 2020 **
+
+Added a PrimeMaker that is unique in that it uses an algorithm with random numbers to find a prime candidate.
+It uses a feature of prime numbers to find a random number that fits with this feature to find a candidate. If the 
+algorithm finds the right number, we run a fermat test and prime test on the number, and if that passes, the algorithm
+has found a prime number. The usage of this contains a stats return and a normal number return. It's normal usage
+is: larsprimemaker(lowend, highend). Example:
+
+
+In [6847]: larsrandomprimemaker(2 ** 1500-1,2 ** 1501-1)                                                                           
+
+
+Out[6847]: 31067962887757566410080873561344849881557449576202385732055546909175507216526707451692981056410284062278732943683623854676445585775624901181668416997590554810831965826094566372012144586447920086656435517508317490622197559416770742121378627557888057672986949466779433278653219360454629141938765082151613807779917411713563311726105689176647642309519555996729277937695498095900436523818222813858507326110770693966246894366187329435444062123638469833554861
+
 -------------
 
 To use:
@@ -67,7 +81,7 @@ get_factors(10099*24389)
 Out[1502]: [29, 29, 29, 10099]
 
 
- get_factors(2**200-1)
+ get_factors(2 ** 200-1)
  
  [3, 5, 11, 41, 5, 5, 17, 31, 101, 401, 251, 601, 1801, 8101, 4051, 61681, 2787601, 268501, 340801, 3173389601]
  
