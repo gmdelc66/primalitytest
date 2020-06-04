@@ -668,4 +668,72 @@ def larsrandomprimemaker(smallend, largeend, withstats=False):
    elif withstats == False:
       return num//2
 
+""" This is probabalistic due to it being unproven that all numbers greater than 2**50 pass the fermat(2, num-1, num) test when
+    lars_last_modulus_powers_of_two(num+num) == 2. It is extremely quick and using a stress test i haven't found any numbers that
+    haven't passed this test, but with that said, there is no theory proving it's accuracy, so use it knowing that. This test is only
+    to be used for primes larger than 2**50. This is really for educational purposes only, but you may find it to be practical if 
+    you looking for a quick prime test and even with weeks of cpu time of stress testing i haven't seen any errors in it's answers.
+    I include it for educational purposes not practicle purposes, but i think you'll be suprised by it's ability to pass any isprime
+    test.
+""" 
+
+def fast_probabilistic_isprime(hm):
+    if hm < 2**50:
+       return "This is to only be used on numbers greater than 2**50"
+    if lars_last_modulus_powers_of_two(hm+hm) != 2:
+       return False
+    if pow(2, hm-1, hm) == 1:
+       return True
+    else:
+       return False
+
+""" This uses the probabalistic fast isprime function to find the next prime
+"""
+
+def fast_probabilistic_next_prime(hm):
+   if hm < 2**50:
+       return "This is to only be used on numbers greater than 2**50"
+   if hm % 2 == 0:
+      hm = hm + 1
+   hm += 2
+   while fast_probabilistic_isprime(hm) == False:
+      hm += 2
+   return hm
+
+""" This creates a random number and then finds the next prime using he probabalistic fast isprime function. It's usage is:
+    create_probabilistic_prime(1500). You must use a number greater than 50.
+"""
+
+def create_probabilistic_prime(hm):
+   if hm**hm < 2**50:
+       return "This is to only be used on numbers greater than 2**50"
+   num = random.randint(2**hm,2**(hm+1))
+   return fast_probabilistic_next_prime(num)
+
+
+""" This is a probabalistic primemaker based on using fast_probabalistic_isprime(). Use at your own risk, it is based on the reasoning
+    that the chance of error is very small. You can always use larsprimetest or sympy's isprime to verify the results. I have stressed
+    test this with weeks of cpu time on a 6 core AMD and have seen no erronous results on numbers larger than 2**50. 
+"""
+
+def larsprobabilisticprimemaker(smallend, largeend, withstats=False):
+   if smallend < 2**50  or largeend <  2**50:
+      return "This primemaker is only for use of primes larger than 2**50. Please Try a larger number"
+   if smallend % 2 == 0:
+      smallend = smallend - 1
+   if largeend % 2 == 0:
+      largeend = largeend - 1
+   count = 0
+   while True:
+     primetest = True
+     num = random.randrange(smallend,largeend,2)
+     while fast_probabilistic_isprime(num//2) == False:
+        num = random.randrange(smallend,largeend,2)
+        count += 1
+     break
+   if withstats == True:
+      return [num, num//2, lars_last_modulus_powers_of_two(num-1), count]
+   elif withstats == False:
+      return num//2
+
 
