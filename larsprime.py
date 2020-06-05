@@ -706,7 +706,7 @@ def fast_probabilistic_next_prime(hm):
 """
 
 def create_probabilistic_prime(hm):
-   if hm**hm < 2**50:
+   if 2**hm < 2**50:
        return "This is to only be used on numbers greater than 2**50"
    num = random.randint(2**hm,2**(hm+1))
    return fast_probabilistic_next_prime(num)
