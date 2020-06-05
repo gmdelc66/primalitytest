@@ -36,6 +36,21 @@ In [6847]: larsrandomprimemaker(2 ** 1500-1,2 ** 1501-1)
 
 Out[6847]: 31067962887757566410080873561344849881557449576202385732055546909175507216526707451692981056410284062278732943683623854676445585775624901181668416997590554810831965826094566372012144586447920086656435517508317490622197559416770742121378627557888057672986949466779433278653219360454629141938765082151613807779917411713563311726105689176647642309519555996729277937695498095900436523818222813858507326110770693966246894366187329435444062123638469833554861
 
+**  UPDATE JUNE 4th 2020 **
+
+For Educational purposes, i have added some probabalistic functions to create primes. I think you'll be suprised at it's
+ability to create and pass isprime tests even though it's probabalistic. I include them because they are simple, yet
+impressive at their ability to pass isprime tests, even if error prone. All numbers created with these must be greater than
+2 ** 50
+
+fast_probabilistic_isprime(num)
+
+fast_probabilistic_next_prime(num)
+
+create_probabilistic_prime(num)
+
+larsprobabilisticprimemaker(smallnum, largenum) with optional withstats=True
+
 -------------
 
 To use:
