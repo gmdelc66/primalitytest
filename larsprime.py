@@ -746,7 +746,7 @@ def larsprobabilisticprimemaker(smallend, largeend, withstats=False):
 """ END PROBABALISTIC FOR EDUCATIONAL PURPOSES ONLY """            
 
 
-""" Prime Sieve Maker found on the internet """"
+""" Prime Sieve Maker found on the internet """
 
 def primes_sieve2(limit):
     a = [True] * limit
