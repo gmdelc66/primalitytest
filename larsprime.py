@@ -763,13 +763,13 @@ def primes_sieve2(limit):
     via pow(xx, 2**x-1, 2**x). Where xx is a prime number and x is the iteration of the loop. For example:
 
     In [8128]: powers_of_2_prime_maker(6)                                                                                                                                     
-    pow(53, 2**6-1, 2**6) = 29 and is Prime, 53 is Prime?: True, 2**6-1 is Prime?: True
-    pow(43, 2**6-1, 2**6) = 3 and is Prime, 43 is Prime?: True, 2**6-1 is Prime?: True
-    pow(31, 2**6-1, 2**6) = 31 and is Prime, 31 is Prime?: True, 2**6-1 is Prime?: True
-    pow(29, 2**6-1, 2**6) = 53 and is Prime, 29 is Prime?: True, 2**6-1 is Prime?: True
-    pow(13, 2**6-1, 2**6) = 5 and is Prime, 13 is Prime?: True, 2**6-1 is Prime?: True
-    pow(5, 2**6-1, 2**6) = 13 and is Prime, 5 is Prime?: True, 2**6-1 is Prime?: True
-    pow(3, 2**6-1, 2**6) = 43 and is Prime, 3 is Prime?: True, 2**6-1 is Prime?: True
+    pow(53, 2**6-1, 2**6) = 29 and is Prime, 53 is Prime?: True, 2**6-1 is Prime?: False
+    pow(43, 2**6-1, 2**6) = 3 and is Prime, 43 is Prime?: True, 2**6-1 is Prime?: False
+    pow(31, 2**6-1, 2**6) = 31 and is Prime, 31 is Prime?: True, 2**6-1 is Prime?: False
+    pow(29, 2**6-1, 2**6) = 53 and is Prime, 29 is Prime?: True, 2**6-1 is Prime?: False
+    pow(13, 2**6-1, 2**6) = 5 and is Prime, 13 is Prime?: True, 2**6-1 is Prime?: False
+    pow(5, 2**6-1, 2**6) = 13 and is Prime, 5 is Prime?: True, 2**6-1 is Prime?: False
+    pow(3, 2**6-1, 2**6) = 43 and is Prime, 3 is Prime?: True, 2**6-1 is Prime?: False
 
     In [8129]: powers_of_2_prime_maker(7)                                                                                                                                      
     7: 127 already Prime
@@ -796,15 +796,14 @@ def primes_sieve2(limit):
 
 """
 
-
 def powers_of_2_prime_maker(x):
    primereducer = list(reversed(list(primes_sieve2(2**x-1))))
    if larsprimetest(2**x-1) == True:
       print(f"{x}: {2**x-1} already Prime")
    for xx in primereducer:
       if larsprimetest(pow(xx, 2**x-1, 2**x)) == True:
-        print(f"pow({xx}, 2**{x}-1, 2**{x}) = {pow(xx, 2**x-1, 2**x)} and is Prime, {xx} is Prime?: {larsprimetest(x)}, 2**{x}-1 is Prime?: {larsprimetest(pow(xx, 2**x-1, 2**x))}")
-      
+        print(f"pow({xx}, 2**{x}-1, 2**{x}) = {pow(xx, 2**x-1, 2**x)} and is Prime, {xx} is Prime?: {larsprimetest(xx)}, 2**{x}-1 is Prime?: {larsprimetest(2**x-1)}")
+
       
 """ Here is a random powers of 2 prime finder. Instead of a traditional random number find and next_prime find, 
    It finds a random number that passes the lars_last_modulus_powers_of_two and checks if it's //2 is prime.
