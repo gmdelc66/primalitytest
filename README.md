@@ -121,6 +121,13 @@ Added random_powers_of_2_prime_finder()
     Here is an example if withstats is True:
     In [8376]: random_powers_of_2_prime_finder(500,withstats=True)                                                                                                         
     Out[8376]: 'pow(666262300770453383069409586449388105866418680981109533955324455061042093893855903254102021029841224158334524986498089277831523295501050122115012763111, 2 ** 500-1, 2 ** 500) = 896210381184287864297818969694142462892609158257898833237071849213575043971828530532195572986889116466526908364900915586299134290481831272303561385431'
+    
+    It returns an equation showing the prime result, here is another example:
+    
+    In [8436]: random_powers_of_2_prime_finder(100,withstats=True)                                                                                                         
+    Out[8436]: 'pow(21228499098241391741518188355, 2**100-1, 2**100) = 648150045025216535003765994859'
+ 
+    Notices the answer is an equation that finds a prime.
 """
 
 -------------
