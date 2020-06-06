@@ -804,3 +804,40 @@ def powers_of_2_prime_maker(x):
    for xx in primereducer:
       if larsprimetest(pow(xx, 2**x-1, 2**x)) == True:
         print(f"pow({xx}, 2**{x}-1, 2**{x}) = {pow(xx, 2**x-1, 2**x)} and is Prime, {xx} is Prime?: {larsprimetest(x)}, 2**{x}-1 is Prime?: {larsprimetest(pow(xx, 2**x-1, 2**x))}")
+      
+      
+""" Here is a random powers of 2 prime finder. Instead of a traditional random number find and next_prime find, 
+   It finds a random number that passes the lars_last_modulus_powers_of_two and checks if it's //2 is prime.
+   Once found it performs a pow(primenum, 2**powersnumber-1, powersnumber) prime test and continues until it
+   finds a prime number as the answer.
+
+   Here is an example if withstats is True:
+
+   In [8376]: random_powers_of_2_prime_finder(500,withstats=True)                                                                                                         
+
+   Out[8376]: 'pow(666262300770453383069409586449388105866418680981109533955324455061042093893855903254102021029841224158334524986498089277831523295501050122115012763111, 2**500-1, 2**500) = 896210381184287864297818969694142462892609158257898833237071849213575043971828530532195572986889116466526908364900915586299134290481831272303561385431'
+
+"""
+
+def random_powers_of_2_prime_finder(powersnumber, withstats=False):
+    while True:
+       randsize = random.randint(1, powersnumber-1)
+       randnum = random.randint(randsize, 2**powersnumber)
+       while lars_last_modulus_powers_of_two(randnum) == 2 and larsprimetest(randnum//2) == False:
+         randsize = random.randint(1, powersnumber-1)
+         randnum = random.randint(randsize, 2**powersnumber)
+       primenum = randnum//2
+       powers2find = pow(primenum, 2**powersnumber-1, 2**powersnumber)
+       if larsprimetest(powers2find) == True:
+          break
+       else:  
+          continue
+    if withstats == False:
+      return powers2find
+    elif withstats == True:
+      return f"pow({primenum}, 2**{powersnumber}-1, 2**{powersnumber}) = {powers2find}"
+    return powers2find
+
+
+
+      
