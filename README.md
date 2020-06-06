@@ -127,7 +127,7 @@ Added random_powers_of_2_prime_finder()
     In [8436]: random_powers_of_2_prime_finder(100,withstats=True)                                                                                                         
     Out[8436]: 'pow(21228499098241391741518188355, 2**100-1, 2**100) = 648150045025216535003765994859'
  
-    Notices the answer is an equation that finds a prime.
+    Notice the answer is an equation that finds a prime.
 """
 
 -------------
