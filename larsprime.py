@@ -758,11 +758,11 @@ def primes_sieve2(limit):
             for n in range(i*i, limit, i):
                 a[n] = False            
 
-""" mersenne_prime_maker() Here is it's description:
+""" powers_of_2_prime_maker() Here is it's description:
     Use any number here but use the sieves numbers here to see that only prime numbers can make prime numbers
     via pow(xx, 2**x-1, 2**x). Where xx is a prime number and x is the iteration of the loop. For example:
 
-    In [8128]: mersenne_prime_maker(6)                                                                                                                                     
+    In [8128]: powers_of_2_prime_maker(6)                                                                                                                                     
     pow(53, 2**6-1, 2**6) = 29 and is Prime, 53 is Prime?: False, 2**6-1 is Prime?: True
     pow(43, 2**6-1, 2**6) = 3 and is Prime, 43 is Prime?: False, 2**6-1 is Prime?: True
     pow(31, 2**6-1, 2**6) = 31 and is Prime, 31 is Prime?: False, 2**6-1 is Prime?: True
@@ -771,7 +771,7 @@ def primes_sieve2(limit):
     pow(5, 2**6-1, 2**6) = 13 and is Prime, 5 is Prime?: False, 2**6-1 is Prime?: True
     pow(3, 2**6-1, 2**6) = 43 and is Prime, 3 is Prime?: False, 2**6-1 is Prime?: True
 
-    In [8129]: mersenne_prime_maker(7)                                                                                                                                      
+    In [8129]: powers_of_2_prime_maker(7)                                                                                                                                      
     7: 127 already Prime
     pow(113, 2**7-1, 2**7) = 17 and is Prime, 113 is Prime?: True, 2**7-1 is Prime?: True
     pow(109, 2**7-1, 2**7) = 101 and is Prime, 109 is Prime?: True, 2**7-1 is Prime?: True
@@ -789,12 +789,12 @@ def primes_sieve2(limit):
 
     Use https://www.mersenne.org/primes/  to find which primes are mersenne primes to test. Notice that in both
     cases the numbers generated show up as the first number in the pow() statement that generate a true prime,
-    even if false in the case of non mersenne numbers. I thought this was interesting so included it in this library.
+    even if in the case of non mersenne numbers. I thought this was interesting so included it in this library.
 
 """
 
 
-def mersenne_prime_maker(x):
+def powers_of_2_prime_maker(x):
    primereducer = list(reversed(list(primes_sieve2(2**x-1))))
    if larsprimetest(2**x-1) == True:
       print(f"{x}: {2**x-1} already Prime")
