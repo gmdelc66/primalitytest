@@ -63,19 +63,19 @@ Added random_powers_of_2_prime_finder()
     via pow(xx, 2 ** x-1, 2 ** x). Where xx is a prime number and x is the iteration of the loop. For example:
     
     In [8128]: powers_of_2_prime_maker(6)                                                                                                                                     
-    pow(53, 2 ** 6-1, 2 ** 6) = 29 and is Prime, 53 is Prime?: True, 2 ** 6-1 is Prime?: True
+    pow(53, 2 ** 6-1, 2 ** 6) = 29 and is Prime, 53 is Prime?: True, 2 ** 6-1 is Prime?: False
     
-    pow(43, 2 ** 6-1, 2 ** 6) = 3 and is Prime, 43 is Prime?: True, 2 ** 6-1 is Prime?: True
+    pow(43, 2 ** 6-1, 2 ** 6) = 3 and is Prime, 43 is Prime?: True, 2 ** 6-1 is Prime?: False
     
-    pow(31, 2 ** 6-1, 2 ** 6) = 31 and is Prime, 31 is Prime?: True, 2 ** 6-1 is Prime?: True
+    pow(31, 2 ** 6-1, 2 ** 6) = 31 and is Prime, 31 is Prime?: True, 2 ** 6-1 is Prime?: False
     
-    pow(29, 2 ** 6-1, 2 ** 6) = 53 and is Prime, 29 is Prime?: True, 2 ** 6-1 is Prime?: True
+    pow(29, 2 ** 6-1, 2 ** 6) = 53 and is Prime, 29 is Prime?: True, 2 ** 6-1 is Prime?: False
     
-    pow(13, 2 ** 6-1, 2 ** 6) = 5 and is Prime, 13 is Prime?: True, 2 ** 6-1 is Prime?: True
+    pow(13, 2 ** 6-1, 2 ** 6) = 5 and is Prime, 13 is Prime?: True, 2 ** 6-1 is Prime?: False
     
-    pow(5, 2 ** 6-1, 2 ** 6) = 13 and is Prime, 5 is Prime?: True, 2 ** 6-1 is Prime?: True
+    pow(5, 2 ** 6-1, 2 ** 6) = 13 and is Prime, 5 is Prime?: True, 2 ** 6-1 is Prime?: False
     
-    pow(3, 2 ** 6-1, 2 ** 6) = 43 and is Prime, 3 is Prime?: True, 2 ** 6-1 is Prime?: True
+    pow(3, 2 ** 6-1, 2 ** 6) = 43 and is Prime, 3 is Prime?: True, 2 ** 6-1 is Prime?: False
     
     In [8129]: powers_of_2_prime_maker(7)                                                                                                                                      
     7: 127 already Prime
