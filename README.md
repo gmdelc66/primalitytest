@@ -41,7 +41,7 @@ Out[6847]: 310679628877575664100808735613448498815574495762023857320555469091755
 For Educational purposes, i have added some probabalistic functions to create primes. I think you'll be suprised at it's
 ability to create and pass isprime tests even though it's probabalistic. I include them because they are simple, yet
 impressive at their ability to pass isprime tests, even if error prone. All numbers created with these must be greater than
-2 ** 50
+2 ** 50. You can use mersenne numbers to generate primes that don't pass this test so don't use for anything serious, it is more for it's uncanny ability to make prime numbers when mersenne numbers aren't involved
 
 fast_probabilistic_isprime(num)
 
@@ -50,6 +50,60 @@ fast_probabilistic_next_prime(num)
 create_probabilistic_prime(num)
 
 larsprobabilisticprimemaker(smallnum, largenum) with optional withstats=True
+
+** UPDATE JUNE 5th 2020 **
+
+Added mersenne_prime_maker()
+
+""" mersenne_prime_maker() Here is it's description:
+    Use any number here but use the sieves numbers here to see that only prime numbers can make prime numbers
+    via pow(xx, 2 ** x-1, 2 ** x). Where xx is a prime number and x is the iteration of the loop. For example:
+    
+    In [8128]: mersenne_prime_maker(6)                                                                                                                                     
+    pow(53, 2 ** 6-1, 2 ** 6) = 29 and is Prime, 53 is Prime?: False, 2 ** 6-1 is Prime?: True
+    
+    pow(43, 2 ** 6-1, 2 ** 6) = 3 and is Prime, 43 is Prime?: False, 2 ** 6-1 is Prime?: True
+    
+    pow(31, 2 ** 6-1, 2 ** 6) = 31 and is Prime, 31 is Prime?: False, 2 ** 6-1 is Prime?: True
+    
+    pow(29, 2 ** 6-1, 2 ** 6) = 53 and is Prime, 29 is Prime?: False, 2 ** 6-1 is Prime?: True
+    
+    pow(13, 2 ** 6-1, 2 ** 6) = 5 and is Prime, 13 is Prime?: False, 2 ** 6-1 is Prime?: True
+    
+    pow(5, 2 ** 6-1, 2 ** 6) = 13 and is Prime, 5 is Prime?: False, 2 ** 6-1 is Prime?: True
+    
+    pow(3, 2 ** 6-1, 2 ** 6) = 43 and is Prime, 3 is Prime?: False, 2 ** 6-1 is Prime?: True
+    
+    In [8129]: mersenne_prime_maker(7)                                                                                                                                      
+    7: 127 already Prime
+    
+    pow(113, 2 ** 7-1, 2 ** 7) = 17 and is Prime, 113 is Prime?: True, 2 ** 7-1 is Prime?: True
+    
+    pow(109, 2 ** 7-1, 2 ** 7) = 101 and is Prime, 109 is Prime?: True, 2 ** 7-1 is Prime?: True
+    
+    pow(107, 2 ** 7-1, 2 ** 7) = 67 and is Prime, 107 is Prime?: True, 2 ** 7-1 is Prime?: True
+    
+    pow(101, 2 ** 7-1, 2 ** 7) = 109 and is Prime, 101 is Prime?: True, 2 ** 7-1 is Prime?: True
+    
+    pow(79, 2 ** 7-1, 2 ** 7) = 47 and is Prime, 79 is Prime?: True, 2 ** 7-1 is Prime?: True
+    
+    pow(67, 2 ** 7-1, 2 ** 7) = 107 and is Prime, 67 is Prime?: True, 2 ** 7-1 is Prime?: True
+    
+    pow(53, 2 ** 7-1, 2 ** 7) = 29 and is Prime, 53 is Prime?: True, 2 ** 7-1 is Prime?: True
+    
+    pow(47, 2 ** 7-1, 2 ** 7) = 79 and is Prime, 47 is Prime?: True, 2 ** 7-1 is Prime?: True
+    
+    pow(43, 2 ** 7-1, 2 ** 7) = 3 and is Prime, 43 is Prime?: True, 2 ** 7-1 is Prime?: True
+    
+    pow(29, 2 ** 7-1, 2 ** 7) = 53 and is Prime, 29 is Prime?: True, 2 ** 7-1 is Prime?: True
+   
+    pow(17, 2 ** 7-1, 2 ** 7) = 113 and is Prime, 17 is Prime?: True, 2 ** 7-1 is Prime?: True
+    
+    pow(3, 2 ** 7-1, 2 ** 7) = 43 and is Prime, 3 is Prime?: True, 2 ** 7-1 is Prime?: True
+    
+    Use https://www.mersenne.org/primes/  to find which primes are mersenne primes to test. Notice that in both
+    cases the numbers generated show up as the first number in the pow() statement that generate a true prime,
+    even if false in the case of non mersenne numbers. I thought this was interesting so included it in this library.
 
 -------------
 
