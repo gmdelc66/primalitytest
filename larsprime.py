@@ -743,6 +743,9 @@ def larsprobabilisticprimemaker(smallend, largeend, withstats=False):
    elif withstats == False:
       return num//2
 
+""" END PROBABALISTIC FOR EDUCATIONAL PURPOSES ONLY """            
+
+
 """ Prime Sieve Maker found on the internet """"
 
 def primes_sieve2(limit):
@@ -753,10 +756,7 @@ def primes_sieve2(limit):
         if isprime:
             yield i
             for n in range(i*i, limit, i):
-                a[n] = False
-
-""" END PROBABALISTIC FOR EDUCATIONAL PURPOSES ONLY """            
-            
+                a[n] = False            
 
 """ mersenne_prime_maker() Here is it's description:
     Use any number here but use the sieves numbers here to see that only prime numbers can make prime numbers
