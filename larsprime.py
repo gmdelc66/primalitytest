@@ -806,8 +806,8 @@ def powers_of_2_prime_maker(x):
 
       
 """ Here is a random powers of 2 prime finder. Instead of a traditional random number find and next_prime find, 
-   It finds a random number that passes the lars_last_modulus_powers_of_two and checks if it's //2 is prime.
-   Once found it performs a pow(primenum, 2**powersnumber-1, powersnumber) prime test and continues until it
+   It finds a random number that passes the lars_last_modulus_powers_of_two and checks if it's answer:
+   pow(answer, 2**powersnumber-1, 2**powersnumber) passes an is prime test and continues until it
    finds a prime number as the answer.
 
    Here is an example if withstats is True:
@@ -833,8 +833,8 @@ def random_powers_of_2_prime_finder(powersnumber, withstats=False):
        while lars_last_modulus_powers_of_two(randnum) == 2 and larsprimetest(randnum//2) == False:
          randsize = random.randint(1, powersnumber-1)
          randnum = random.randint(randsize, 2**powersnumber)
-       primenum = randnum//2
-       powers2find = pow(primenum, 2**powersnumber-1, 2**powersnumber)
+       answer = randnum//2
+       powers2find = pow(answer, 2**powersnumber-1, 2**powersnumber)
        if larsprimetest(powers2find) == True:
           break
        else:  
@@ -842,8 +842,9 @@ def random_powers_of_2_prime_finder(powersnumber, withstats=False):
     if withstats == False:
       return powers2find
     elif withstats == True:
-      return f"pow({primenum}, 2**{powersnumber}-1, 2**{powersnumber}) = {powers2find}"
+      return f"pow({answer}, 2**{powersnumber}-1, 2**{powersnumber}) = {powers2find}"
     return powers2find
+
 
 
 
