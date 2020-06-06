@@ -835,7 +835,7 @@ def random_powers_of_2_prime_finder(powersnumber, primeanswer=False, withstats=F
          randnum = random.randint(randsize, 2**powersnumber)
        answer = randnum//2
        # This option makes the finding of a prime much longer, i would suggest not using it as 
-       # the whole point is a prime answer. 
+       # the whole point is a prime result. 
        if primeanswer == True:
           if larsprimetest(answer) == False:
             continue
