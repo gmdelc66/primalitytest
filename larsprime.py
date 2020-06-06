@@ -804,6 +804,59 @@ def powers_of_2_prime_maker(x):
       if larsprimetest(pow(xx, 2**x-1, 2**x)) == True:
         print(f"pow({xx}, 2**{x}-1, 2**{x}) = {pow(xx, 2**x-1, 2**x)} and is Prime, {xx} is Prime?: {larsprimetest(xx)}, 2**{x}-1 is Prime?: {larsprimetest(2**x-1)}")
 
+""" pow_mod_p2() is much faster than pow() for numbers with a modulus of the powers of 2 
+
+    Example speed increase:
+
+    In [760]: import time   
+     ...: start = time.time()   
+     ...: pow_mod_p2(1009732533765251, sinn, 1<<((sinn.bit_length()-1)))  
+     ...: end = time.time()   
+     ...: print(end-start) 
+     ...:                                                                                                                                                                                          
+     1.6118049621582031
+
+     In [761]: import time   
+     ...: start = time.time()   
+     ...: pow(1009732533765251, sinn, 1<<((sinn.bit_length()-1)))  
+     ...: end = time.time()   
+     ...: print(end-start)                                                                                                                                                                         
+
+     5.584430932998657
+
+     where sinn is a 4096 byte prime number.
+
+"""
+
+def pow_mod_p2(x, y, z):
+    "Calculate (x ** y) % z efficiently."
+    number = 1
+    while y:
+        if y & 1:
+            number = modular_powerxz(number * x, z)
+        y >>= 1
+        x = modular_powerxz(x * x, z)
+    return number
+
+""" modular_powerxz is only for use for fast modulus of powers of 2 numbers, upto the offset of -2 to +2.
+    It offers 4-5x speed faster than straight % mod or pow(x,y,z) where z is a modulus that is within
+    the powers of 2 and an offset up to -2 to +2 away.
+"""
+
+def modular_powerxz(num, z, bitlength=1, offset=0):
+   xpowers = 1<<(z.bit_length()-bitlength)
+   if ((num+1) & (xpowers-1)) == 0:
+      return num%xpowers
+   elif offset == -2:
+      return ( num & ( xpowers -bitlength)) + 2
+   elif offset == -1:
+      return ( num & ( xpowers -bitlength)) + 1
+   elif offset == 0:
+      return ( num & ( xpowers -bitlength))      
+   elif offset == 1:
+      return ( num & ( xpowers -bitlength)) - 1
+   elif offset == 2:
+      return ( num & ( xpowers -bitlength)) - 2
       
 """ Here is a random powers of 2 prime finder. Instead of a traditional random number find and next_prime find, 
     It finds a random number that passes the lars_last_modulus_powers_of_two and checks if it's answer which is 
@@ -828,18 +881,16 @@ def powers_of_2_prime_maker(x):
 
 def random_powers_of_2_prime_finder(powersnumber, primeanswer=False, withstats=False):
     while True:
-       randsize = random.randint(1, powersnumber-1)
-       randnum = random.randint(randsize, 2**powersnumber)
+       randnum = random.randrange((1<<(powersnumber-1))-1, (1<<powersnumber)-1,2)
        while lars_last_modulus_powers_of_two(randnum) == 2 and larsprimetest(randnum//2) == False:
-         randsize = random.randint(1, powersnumber-1)
-         randnum = random.randint(randsize, 2**powersnumber)
+         randnum = random.randrange((1<<(powersnumber-1))-1, (1<<powersnumber)-1,2)
        answer = randnum//2
        # This option makes the finding of a prime much longer, i would suggest not using it as 
-       # the whole point is a prime result. 
+       # the whole point is a prime answer. 
        if primeanswer == True:
           if larsprimetest(answer) == False:
             continue
-       powers2find = pow(answer, 2**powersnumber-1, 2**powersnumber)
+       powers2find = pow_mod_p2(answer, (1<<powersnumber)-1, 1<<powersnumber)
        if larsprimetest(powers2find) == True:
           break
        else:  
@@ -847,8 +898,9 @@ def random_powers_of_2_prime_finder(powersnumber, primeanswer=False, withstats=F
     if withstats == False:
       return powers2find
     elif withstats == True:
-      return f"pow({answer}, 2**{powersnumber}-1, 2**{powersnumber}) = {powers2find}"
+      return f"pow_mod_p2({answer}, 2**{powersnumber}-1, 2**{powersnumber}) = {powers2find}"
     return powers2find
+
 
 
 
