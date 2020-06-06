@@ -105,6 +105,9 @@ Added powers_of_2_prime_maker()
     cases the numbers generated show up as the first number in the pow() statement that generate a true prime,
     and there is never a  false in the case of 2 ** -1 numbers. I thought this was interesting so included it in this 
     library.
+    
+    Notice that it seems that all numbers that end up as an answer are also seem to end up in the first pow(x,,)
+    statement
 
 -------------
 
