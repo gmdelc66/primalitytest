@@ -760,7 +760,8 @@ def primes_sieve2(limit):
 
 """ powers_of_2_prime_maker() Here is it's description:
     Use any number here but use the sieves numbers here to see that only prime numbers can make prime numbers
-    via pow(xx, 2**x-1, 2**x). Where xx is a prime number and x is the iteration of the loop. For example:
+    via pow(xx, 2**x-1, 2**x), where only those answers match up to other primes. It's like a 1 to 1 ratio.
+    Where xx is a prime number and x is the iteration of the loop. For example:
 
     In [8128]: powers_of_2_prime_maker(6)                                                                                                                                     
     pow(53, 2**6-1, 2**6) = 29 and is Prime, 53 is Prime?: True, 2**6-1 is Prime?: False
@@ -792,7 +793,7 @@ def primes_sieve2(limit):
     even if in the case of non mersenne numbers. I thought this was interesting so included it in this library.
     
     Notice that it seems that all numbers that end up as an answer are also seem to end up in the first pow(x,,)
-    statement
+    statement. This is what i mean by every prime in the series has it's answers in the series of primes used.
 
 """
 
