@@ -826,7 +826,7 @@ def powers_of_2_prime_maker(x):
     
 """
 
-def random_powers_of_2_prime_finder(powersnumber, withstats=False):
+def random_powers_of_2_prime_finder(powersnumber, primeanswer=False, withstats=False):
     while True:
        randsize = random.randint(1, powersnumber-1)
        randnum = random.randint(randsize, 2**powersnumber)
@@ -834,6 +834,11 @@ def random_powers_of_2_prime_finder(powersnumber, withstats=False):
          randsize = random.randint(1, powersnumber-1)
          randnum = random.randint(randsize, 2**powersnumber)
        answer = randnum//2
+       # This option makes the finding of a prime much longer, i would suggest not using it as 
+       # the whole point is a prime answer. 
+       if primeanswer == True:
+          if larsprimetest(answer) == False:
+            continue
        powers2find = pow(answer, 2**powersnumber-1, 2**powersnumber)
        if larsprimetest(powers2find) == True:
           break
