@@ -55,6 +55,9 @@ larsprobabilisticprimemaker(smallnum, largenum) with optional withstats=True
 
 Added powers_of_2_prime_maker()
 
+Added random_powers_of_2_prime_finder()
+
+
 """ powers_of_2_prime_maker() Here is it's description:
     Use any number here but use the sieves numbers here to see that only prime numbers can make prime numbers
     via pow(xx, 2 ** x-1, 2 ** x). Where xx is a prime number and x is the iteration of the loop. For example:
@@ -108,6 +111,17 @@ Added powers_of_2_prime_maker()
     
     Notice that it seems that all numbers that end up as an answer are also seem to end up in the first pow(x,,)
     statement
+   
+    random_powers_of_2_prime_finder(powersnumber, withstats=False)
+   
+    Here is a random powers of 2 prime finder. Instead of a traditional random number find and next_prime find, 
+    It finds a random number that passes the lars_last_modulus_powers_of_two and checks if it's //2 is prime.
+    Once found it performs a pow(primenum, 2 ** powersnumber-1, powersnumber) prime test and continues until it
+    finds a prime number as the answer.
+    Here is an example if withstats is True:
+    In [8376]: random_powers_of_2_prime_finder(500,withstats=True)                                                                                                         
+    Out[8376]: 'pow(666262300770453383069409586449388105866418680981109533955324455061042093893855903254102021029841224158334524986498089277831523295501050122115012763111, 2 ** 500-1, 2 * *500) = 896210381184287864297818969694142462892609158257898833237071849213575043971828530532195572986889116466526908364900915586299134290481831272303561385431'
+"""
 
 -------------
 
