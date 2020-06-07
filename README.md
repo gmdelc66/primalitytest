@@ -131,6 +131,35 @@ Added random_powers_of_2_prime_finder()
     Notice the answer is an equation that finds a prime.
 """
 
+UPDATE JUNE 6th 2020
+
+refactored a new larsisprime(num) to be a more concise version of larsprimetest. It is currently in beta.
+
+Added larsgcd which larsisprime() utilizes:
+
+    larsgcd(num) returns any primes found within the offset of it's powers of two number.
+    It doesn't find all primes, but does find many. Here are example usages (also showing
+    that squaring a number can uncover it's primes). The third number is the prime unless
+    the number is the number itself. In that case it's not used as a factor in larsisprime():
+    
+    In [939]: larsgcd(341)  
+    Out[939]: (341, 0, 31)
+    
+    In [940]: larsgcd(101*1009)   
+    Out[940]: (101909, 0, 101)
+    
+    
+    In [941]: larsgcd(1009732533765203) 
+    Out[941]: (1009732533765203, 0, 1823)
+    
+    And squaring examples:
+    
+    In [942]: larsgcd((1009*1013)**2)                                      
+    Out[942]: (1044723161689, 0, 1009)
+    
+    In [947]: larsgcd((1009*191)**2)
+    Out[947]: (37140612961, 0, 191)
+
 -------------
 
 To use:
