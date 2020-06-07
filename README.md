@@ -60,7 +60,8 @@ Added random_powers_of_2_prime_finder()
 
 """ powers_of_2_prime_maker() Here is it's description:
     Use any number here but use the sieves numbers here to see that only prime numbers can make prime numbers
-    via pow(xx, 2 ** x-1, 2 ** x). Where xx is a prime number and x is the iteration of the loop. For example:
+    via pow(xx, 2 ** x-1, 2 ** x) where all the primes are also in the pow statement, meaning there is a 1 to
+    1 ratio of a pow(prime) with it's answer. xx is a prime number and x is the iteration of the loop. For example:
     
     In [8128]: powers_of_2_prime_maker(6)                                                                                                                                     
     pow(53, 2 ** 6-1, 2 ** 6) = 29 and is Prime, 53 is Prime?: True, 2 ** 6-1 is Prime?: False
