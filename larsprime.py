@@ -880,7 +880,7 @@ def modular_powerxz(num, z, bitlength=1, offset=0):
     
 """
 
-def random_powers_of_2_prime_finder(powersnumber, primeanswer=False, withstats=False):
+def random_powers_of_2_prime_finder(powersnumber, primeanswer=False, withstats=True):
     while True:
        randnum = random.randrange((1<<(powersnumber-1))-1, (1<<powersnumber)-1,2)
        while lars_last_modulus_powers_of_two(randnum) == 2 and larsprimetest(randnum//2) == False:
