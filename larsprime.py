@@ -903,7 +903,68 @@ def random_powers_of_2_prime_finder(powersnumber, primeanswer=False, withstats=F
     return powers2find
 
 
+"""  This is a refactor of larsprimetest, i'm making the code more concise """
 
+def larsisprime(hm, sieveiter=50):
+   count = 0
+   if hm == 1: return False
+   if hm == 2: return True
+   if lars_last_modulus_powers_of_two(hm+hm) != 2:
+      return False
+   primereducer = list(reversed(list(primes_sieve2(hm.bit_length()))))
+   for x in list(reversed(primereducer)):
+     if  pow(int(x),hm-1,hm) != 1:   
+        return False
+   gcdtest = larsgcd(hm)
+   if gcdtest[2] == 1 or (gcdtest[1] == 0 and gcdtest[2] == hm):
+      return True
+   else:
+      return False
+   return True
+
+""" larsgcd(num) returns any primes found within the offset of it's powers of two number.
+    It doesn't find all primes, but does find many. Here are example usages (also showing
+    that squaring a number can uncover it's primes). The third number is the prime unless
+    the number is the number itself. In that case it's not used as a factor in larsisprime():
+
+    In [939]: larsgcd(341)                                                                                                                                                                             
+    Out[939]: (341, 0, 31)
+
+    In [940]: larsgcd(101*1009)                                                                                                                                                                        
+    Out[940]: (101909, 0, 101)
+    
+    In [941]: larsgcd(1009732533765203)                                                                                                                                                                
+    Out[941]: (1009732533765203, 0, 1823)
+
+    And squaring examples:
+
+    In [942]: larsgcd((1009*1013)**2)                                                                                                                                                                   
+    Out[942]: (1044723161689, 0, 1009)
+
+    In [947]: larsgcd((1009*191)**2)                                                                                                                                                                   
+    Out[947]: (37140612961, 0, 191)
+    
+""" 
+
+def larsgcd(a, offset_range=[]):
+  b = y = 3
+  if a == 1: return 1, y, 0
+  if a == 2 or a == 3 or a == 5: return 1, y, 1
+  if a % 2 == 0: return a, y, 2
+  if a % 3 == 0: return a, y, 3
+  if a % 5 == 0: return a, y, 5
+  for offset in [-2, -1, 0, 1, 2] + offset_range:
+    b = y = 3
+    while b < 1<<a.bit_length():
+      prevy = y
+      while b:
+        prevb = b
+        a,b = a, a%b
+      if prevb != 1: 
+        break
+      y = Xploder(prevy) + offset
+      b = y
+  return a, b, prevb
 
 
       
