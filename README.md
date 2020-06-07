@@ -134,7 +134,8 @@ Added random_powers_of_2_prime_finder()
 
 UPDATE JUNE 6th 2020
 
-refactored a new larsisprime(num) to be a more concise version of larsprimetest. It is currently in beta.
+refactored a new larsisprime(num) to be a more concise version of larsprimetest. It is currently in beta. It utilizes
+lars_last_modulus_powers_of_two as any number that has a lars_last_modulus_powers_of_two(num+num) != 2 will never be prime, it's a quick way to discard non primes.
 
 Added larsgcd which larsisprime() utilizes:
 
