@@ -162,6 +162,27 @@ Added larsgcd which larsisprime() utilizes:
     In [947]: larsgcd((1009*191)**2)
     Out[947]: (37140612961, 0, 191)
 
+** UPDATE JUNE 7th 2020 **
+
+added: get_factors_lars_opt(num)  which uses an optimized pollard brent to find larger factors
+
+    get_factors_lars_opt is a combination of the routines above and a pollard brent optimization i made to
+    increase it's speed. They must be used in conjunction as my optimization can cause pollard brent to find
+    psuedoprimes at the lower boundry, so we use the tools i have included here to find the smaller primes. 
+
+    This doesn't use the refactored larsgcd yet, as that's still in beta, but when its finished, this version
+    should be much more compact and code consise.
+
+    Example Usage:
+
+    In [175]: get_factors_lars_opt(10097325337652014342342342342213)                                                                                                                                    
+    [] 10097325337652014342342342342213
+    h: break
+    [19] 531438175665895491702228544327
+    [19, 13523911] 39296189960573941347457
+    [19, 13523911, 1372014439, 28641236450263]
+    Out[175]: [19, 13523911, 1372014439, 28641236450263]
+
 -------------
 
 To use:
