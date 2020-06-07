@@ -966,5 +966,122 @@ def larsgcd(a, offset_range=[]):
       b = y
   return a, b, prevb
 
+""" get_factors_lars_opt is a combination of the routines above and a pollard brent optimization i made to
+    increase it's speed. They must be used in conjunction as my optimization can cause pollard brent to find
+    psuedoprimes at the lower boundry, so we use the tools i have included here to find the smaller primes. 
 
+    This doesn't use the refactored larsgcd yet, as that's still in beta, but when its finished, this version
+    should be much more compact and code consise.
+
+    Example Usage:
+
+    In [175]: get_factors_lars_opt(10097325337652014342342342342213)                                                                                                                                    
+    [] 10097325337652014342342342342213
+    h: break
+    [19] 531438175665895491702228544327
+    [19, 13523911] 39296189960573941347457
+    [19, 13523911, 1372014439, 28641236450263]
+    Out[175]: [19, 13523911, 1372014439, 28641236450263]
+
+"""
+
+def get_factors_lars_opt(hm, offset=-2):
+   num = hm
+   vv = []
+   while larsprimetest(num // 1) != True:
+     print(vv, num)
+     a = find_prime_evens_lars_opt(num, offset)
+     #print(a)
+     if a[5] == 0:
+       vv.append(a[1])
+     elif a[5] == 2:
+       if num % 2 == 0:
+         vv.append(a[5])
+       else:
+         vv.append(a[3])
+     elif a[5] == 3:
+       if num % 2 == 0:
+          vv.append(2)
+       elif num % 3 == 0:
+          vv.append(3)
+       elif num % 5 == 0:
+          vv.append(5)
+       elif num % a[3] == 0:
+          vv.append(a[3])
+     else:
+       vv.append(a[5])
+     #print(a)
+     num = num // vv[-1]
+   if larsprimetest(num):
+     vv.append(num)
+   print(vv)
+   return vv
+
+
+""" This is a standard pollard_brent with an optimization i made increase it's speed. It must be used in
+    conjunction with the tools here to find all primes that it can
+ """
+
+def pollard_brent_lars_opt(n):
+    if n % 2 == 0: return 2
+    if n % 3 == 0: return 3
+
+    # This optimization is contributed by Lars Rocha. I use an equation instead of random numbers for significant
+    # speed increases on larger numbers
+
+    y,c,m = (1<<((n**2).bit_length()+1)), (1<<((n**2).bit_length())) , (1<<((n**2).bit_length()+1)) 
+
+    #print(y,c,m)
+    g, r, q = 1, 1, 1
+    while g == 1:
+        x = y
+        for i in range(r):
+            y = (pow(y, 2, n) + c) % n
+
+        k = 0
+        while k < r and g==1:
+            ys = y
+            for i in range(min(m, r-k)):
+                y = (pow(y, 2, n) + c) % n
+                q = q * abs(x-y) % n
+            g = math.gcd(q, n)
+            k += m
+        r *= 2
+    if g == n:
+        while True:
+            ys = (pow(ys, 2, n) + c) % n
+            g = math.gcd(abs(x - ys), n)
+            if g > 1:
+                break
+
+    return g
+
+
+def find_prime_evens_lars_opt(hm, offset=-2): 
+  y = 3 
+  prevtemp = 3 
+  if larsprimetest(hm): 
+     print(f"{hm} is already prime") 
+     return hm 
+  while True: 
+    if y.bit_length() > hm.bit_length() -1: 
+      prevtemp = pollard_brent_lars_opt(hm) 
+      break 
+    j = powers(hm, y) 
+    temp = j 
+    if j != 1 and j != 0: 
+      temp = j 
+      temp = hm % temp    
+      if temp == 0: 
+         prevtemp = temp 
+         print("c: break") 
+         break    
+      while temp != 1 and temp != 0: 
+         prevtemp = temp 
+         temp = hm % temp 
+    if temp == 0: 
+      print("h: break") 
+      break 
+    y = Xploder(y) -offset 
+  return hm, j, y.bit_length(), y, temp, prevtemp 
       
