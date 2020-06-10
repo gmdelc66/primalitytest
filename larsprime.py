@@ -1090,17 +1090,20 @@ def find_prime_evens_lars_opt(hm, offset=-2):
     Use returnwithpsuedoprimeresults=True to see if any psuedoprimes are in the answer. Future versions should
     have these rather than the engine getting stuck on the factorization, but this is for a future release.
 
-    This is in bera. It returns results for numbers that other prime engines can't 1 off the powers of 2. Maybe
+    This is in beta. It returns results for numbers that other prime engines can't 1 off the powers of 2. Maybe
     more but i haven't tested much yet. Try this with 2**600-1, 2**600+1, 2**700+1, 2**1200-1 And see that you 
     can get immediate results where with https://pari.math.u-bordeaux.fr/gp.html and 
-    https://www.alpertron.com.ar/ECM.HTM, sympy's factorint, cant seem to factor at all or near the speed this 
+    , sympy's factorint, cant seem to factor at all or near the speed this 
     can one off the powers of two. This is due to fuzzy_factor returning psuedoprimes that can be broken down 
     easier than the psuedoprimes those engines use.These are only a few numbers i tested, and as this is in beta, 
     i plan to enhane this further to return the psuedoprimes it get's stuck on until i implement better    
     factorization techniques. But for now, i can factor some numbers off the powers of 2 better than some of the 
     best engines using this simple method so i'm quite proud of that feat, and it will only get better as i 
     enhance the engine. Feel free to post on github any primes off the powers of 2 that other engines cant' do 
-    but fuzzy_factorp2_brent_pollard can.
+    but fuzzy_factorp2_brent_pollard can.  https://www.alpertron.com.ar/ECM.HTM can with about the same speed. It's
+    really the best engine out there, but it's impressive i can match it's speed on some powers of two with just brent
+    pollard.  Also you can use fuzzy_factorp2(num, returnwithpsuedoprimeresults=True) to get results fast as well.
+
 
 
     Here are the factors for 2**1200-1:
