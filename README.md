@@ -15,7 +15,7 @@ Added fuzzy_factorp2_brent_pollard(num, returnwithpsuedoprimeresults=False)
     Use returnwithpsuedoprimeresults=True to see if any psuedoprimes are in the answer. Future versions should
     have these rather than the engine getting stuck on the factorization, but this is for a future release.
 
-    This is in bera. It returns results for numbers that other prime engines can't 1 off the powers of 2. Maybe
+    This is in beta. It returns results for numbers that other prime engines can't 1 off the powers of 2. Maybe
     more but i haven't tested much yet. Try this with 2**600-1, 2**600+1, 2**700+1, 2**1200-1 And see that you 
     can get immediate results where with https://pari.math.u-bordeaux.fr/gp.html and 
     https://www.alpertron.com.ar/ECM.HTM, sympy's factorint, cant seem to factor at all or near the speed this 
