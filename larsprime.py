@@ -281,7 +281,7 @@ def get_factors(hm, offset=-1):
 """ Fuzzy factor was designed for finding psuedoprimes near powers of 2 numbers that can be reduced faster than a 
    straight factorization using many differerent algotihims. For example, Try: fuzzy_factor(2**1200-1, True) and 
    you get an almost instantaneous result with only 3 numbers that are False (psuedoprime). You can plug these numbers
-   into PARI or ECM and they can factor the numbers faster than you can by using PARI and ECM to reduce just the
+   into PARI  and they can factor the numbers faster than you can by using PARI or factorint to reduce just the
    2**1200-1 itself.  PARI can't seem to factor 2**1200-1 after an hour run, so you can factor the number using fuzzy
    factor then further reduce the psuedoprimes which it indicates and get the complete factorization for 2**1200-1.
    
@@ -292,7 +292,7 @@ def get_factors(hm, offset=-1):
    number. fuzzy_factor was designed for 2**numbers-1, and a newer version fuzzy_factor_any() will be introduced
    here shortly as I'm making daily updates.
 
-   What is *AMAZING* about fuzzy_factor. https://www.alpertron.com.ar/ECM.HTM cannot reduce 2**1000-1, but using 
+   What is *AMAZING* about fuzzy_factor. https://pari.math.u-bordeaux.fr/gp.html cannot reduce 2**1000-1, but using 
    fuzzy_factor, you can take the psuedoprime components, plug them into ECM, and fully reduce 2*1000-1 in a few
    minutes, as fuzzy_factor reduces the number into psuedoprimes that can be reduced further by ECM instead of a
    straight factorization of 2**1000-1. Use fuzzy_factor(2**1000-1, True) to get results back with whether the
@@ -396,7 +396,7 @@ def lars_last_modulus_powers_of_two(hm):
    themselves are composed of very large primes that are to slow for modular reduction and until a faster modular
    reduction technique is found by me or others, Use https://www.alpertron.com.ar/ECM.HTM to further reduce the
    number.
-   What is *AMAZING* about fuzzy_factor. https://www.alpertron.com.ar/ECM.HTM cannot reduce 2**1000-1, but using 
+   What is *AMAZING* about fuzzy_factor. https://pari.math.u-bordeaux.fr/gp.html cannot reduce 2**1000-1, but using 
    fuzzy_factor, you can take the psuedoprime components, plug them into ECM, and fully reduce 2*1000-1 in a few
    minutes, as fuzzy_factor reduces the number into psuedoprimes that can be reduced further by ECM instead of a
    straight factorization of 2**1000-1. Use fuzzy_factor(2**1000-1, True) to get results back with whether the
@@ -464,7 +464,7 @@ def lars_last_modulus_powers_of_two(hm):
   True)]
 
   You can than then use ECM or PARI to further reduce the False (psuedoprimes) to their factors faster than 
-  current straight PARI or ECM factorizations of 2**1200-1.
+  current straight PARI or factorint factorizations of 2**1200-1.
 
 """
 
