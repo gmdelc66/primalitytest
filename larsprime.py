@@ -1084,4 +1084,127 @@ def find_prime_evens_lars_opt(hm, offset=-2):
       break 
     y = Xploder(y) -offset 
   return hm, j, y.bit_length(), y, temp, prevtemp 
+
+""" fuzzy_factorp2_brent_pollard(num, returnwithpsuedoprimeresults=False)
+
+    Use returnwithpsuedoprimeresults=True to see if any psuedoprimes are in the answer. Future versions should
+    have these rather than the engine getting stuck on the factorization, but this is for a future release.
+
+    This is in bera. It returns results for numbers that other prime engines can't 1 off the powers of 2. Maybe
+    more but i haven't tested much yet. Try this with 2**600-1, 2**600+1, 2**700+1, 2**1200-1 And see that you 
+    can get immediate results where with https://pari.math.u-bordeaux.fr/gp.html and 
+    https://www.alpertron.com.ar/ECM.HTM, sympy's factorint, cant seem to factor at all or near the speed this 
+    can one off the powers of two. This is due to fuzzy_factor returning psuedoprimes that can be broken down 
+    easier than the psuedoprimes those engines use.These are only a few numbers i tested, and as this is in beta, 
+    i plan to enhane this further to return the psuedoprimes it get's stuck on until i implement better    
+    factorization techniques. But for now, i can factor some numbers off the powers of 2 better than some of the 
+    best engines using this simple method so i'm quite proud of that feat, and it will only get better as i 
+    enhance the engine. Feel free to post on github any primes off the powers of 2 that other engines cant' do 
+    but fuzzy_factorp2_brent_pollard can.
+
+
+    Here are the factors for 2**1200-1:
+
+    print(fuzzy_factorp2_brent_pollard(2**1200-1))
+    [3, 3, 5, 7, 13, 5, 5, 31, 11, 41, 17, 257, 151, 251, 1601, 101, 401, 331, 61, 97, 241, 4051, 1201, 8101, 
+    673, 1801, 601, 61681, 4801, 1321, 340801, 63901, 25601, 55201, 268501, 100801, 10567201, 4278255361, 
+    4562284561, 1133836730401, 2787601, 3173389601, 394783681, 46908728641, 13334701, 1182468601, 82471201, 
+    432363203127002885506543172618401, 1461503031127477825099979369543473122548042956801, 
+    8059720126266442627050052102446681278605043839701907629253987599434464819580116421853601]
+
+    print(fuzzy_factorp2_brent_pollard(2**420+1))                                                                                                                            
+    [17, 241, 61681, 4562284561, 15790321, 3361, 88959882481, 84179842077657862011867889681, 127681, 1130641,
+     755667361, 54169520413224311136354324156824071681]
+
+    print(fuzzy_factorp2_brent_pollard(2**600-1))                                                                                                                          
+    [3, 3, 7, 5, 5, 5, 13, 31, 17, 61, 11, 151, 41, 241, 601, 101, 251, 331, 1321, 1801, 61681, 401, 1201, 4051, 
+     8101, 63901, 340801, 268501, 100801, 10567201, 4562284561, 1133836730401, 2787601, 3173389601, 13334701, 
+     1182468601, 1461503031127477825099979369543473122548042956801]
+
+    print(fuzzy_factorp2_brent_pollard(2**600+1))                                                                                                                          
+    [257, 97, 673, 1601, 4278255361, 4801, 25601, 55201, 394783681, 46908728641, 82471201, 
+     432363203127002885506543172618401, 
+     8059720126266442627050052102446681278605043839701907629253987599434464819580116421853601]
+
+   Try these on your favorite engine too see if they can factor them with the speed here, if at all. Obviously
+   those engines can factor faster than mine on numbers off the powers of 2 other than a few that i've found as
+   i haven't implemented SIQS yet, but i thought this was interesting and wanted to share it since i only use 
+   brent pollard and my engine to pull off this feat for the numbers above.
+
+"""
+
+def fuzzy_factorp2_brent_pollard(hm, returnwithpsuedoprimeresults=False):
+   b = num = hm
+   vv = []
+   lprime = False
+   larstest = [-2, -1, 0, 1, 2]
+   while larsprimetest(num) == False and num != 1:
+     for x in larstest:
+       b = get_factor_lars_prime(num, x)[0]
+       if larsprimetest(b) == True:
+         lprime = True
+         break
+     if larsprimetest(b) == False:
+       factors = get_factors_lars_prime_brent(b)
+       for xx in factors:
+           num = num // xx
+           if returnwithpsuedoprimeresults == False:
+             vv.append(xx)
+           elif returnwithpsuedoprimeresults == True:
+             vv.append((xx, larsprimetest(xx))) 
+     else:
+           num = num // b
+           if returnwithpsuedoprimeresults == False:
+              vv.append(b)
+           elif returnwithpsuedoprimeresults == True:
+              vv.append((b, larsprimetest(b))) 
+     #if returnwithpsuedoprimeresults == False:
+     #   vv.append(b)
+     #elif returnwithpsuedoprimeresults == True:
+     #   vv.append((b, larsprimetest(b)))
+   if num != 1:
+     if lprime == True:
+       if returnwithpsuedoprimeresults == False:
+          vv.append(num)
+       elif returnwithpsuedoprimeresults == True:
+          vv.append((num, larsprimetest(num))) 
+     elif lprime == False:
+       if returnwithpsuedoprimeresults == False:
+          vv.append(b)
+       elif returnwithpsuedoprimeresults == True:
+          vv.append((b, larsprimetest(b))) 
+   #print(vv)
+   return vv
+
+def get_factors_lars_prime_brent(hm, offset=-2):
+   num = hm
+   vv = []
+   while larsprimetest(num // 1) != True:
+     print(vv, num)
+     a = find_prime_evens_lars_opt(num, offset)
+     #print(a)
+     if a[5] == 0:
+       vv.append(a[1])
+     elif a[5] == 2:
+       if num % 2 == 0:
+         vv.append(a[5])
+       else:
+         vv.append(a[3])
+     elif a[5] == 3:
+       if num % 2 == 0:
+          vv.append(2)
+       elif num % 3 == 0:
+          vv.append(3)
+       elif num % 5 == 0:
+          vv.append(5)
+       elif num % a[3] == 0:
+          vv.append(a[3])
+     else:
+       vv.append(a[5])
+     #print(a)
+     num = num // vv[-1]
+   if larsprimetest(num):
+     vv.append(num)
+   print(vv)
+   return vv
       
