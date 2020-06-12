@@ -5,6 +5,10 @@ Implementation
 This library has evolved from a primality test to a factorization engine, so i hope you enjoy the results. It can
 factor very quickly and uses a few different methods for factoring and is a great alternative to sympy's factorint
 
+Give fuzzy_factorp2_factorise(random.randrange(2 ** 180-1, 2 ** 181-1,2))  or
+     fuzzy_factorp2_factorise(2402956925397989535742923204519510889236432671327589210309935) a try to see what 
+     it's capable of.
+
 This is a non probabilistic primality test. It peforms fermat's test from the bitlength of the number down to 2. 
 It then uses my algorithim to determine whether a number is composed of small primes. 
 If the fermat tests fail, then a prime should be found using my algorithm in the numer itself. If not the number
