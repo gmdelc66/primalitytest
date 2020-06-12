@@ -13,6 +13,8 @@ a number until all factors are found
 I made some speed adjustments to factorise.py's siqs_choose_nf_m function. I commented out the old code for reference
 plesae open up an issues case if you find any issues. The speed increase is anywhere from 1x to 5x.
 
+To use the code here and the new function fuzzy_factorp2_factorise(num) use:  from larsprime import *
+
 ** UDADATE JUNE 12th 2020 **
 
 Added fuzzy_factorp2_factorise(num) which utilizes the factorise.py engine from skollman. It uses the SIQS algorthim and
