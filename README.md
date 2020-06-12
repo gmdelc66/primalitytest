@@ -55,6 +55,29 @@ Here is the description and some sample output:
      factorise.py SIQS Success
      [62013403, 487015843, 294388349552734637, 55358389413759479]
      Out[291]: [2, 62013403, 487015843, 294388349552734637, 55358389413759479]
+     
+     With the new speed increases you can factor a number like this very quickly:
+     
+     In [58]: fuzzy_factorp2_factorise(random.randrange(2**200-1, 2**201-1,2))                                                                                                         
+     Attempting to factorise: 2402956925397989535742923204519510889236432671327589210309935
+     [] 6994795072985254881578072698617348710426689191283535041
+     Attempting POLLARD_BRENT
+     POLLARD BRENT Success
+     [22606210609]
+     [22606210609] 309419176613372003712011984229202963028392849
+     Attempting POLLARD_BRENT
+     Attempting factorise.py SIQS
+     *** Step 1/2: Finding smooth relations ***
+     Target: 1050 relations at about 1 relation per second (sometimes faster) required
+     *** Step 2/2: Linear Algebra ***
+     Building matrix for linear algebra step...
+     Finding perfect squares using matrix...
+     Finding factors from perfect squares...
+     SIQS: Prime factor found: 62014126350947
+     SIQS: Prime factor found: 92825296488583
+     factorise.py SIQS Success
+     [22606210609, 62014126350947, 92825296488583, 53751458290435949]
+     Out[58]: [5, 127, 541, 22606210609, 62014126350947, 92825296488583, 53751458290435949]
 
      You can utilize this rather than sympy's factorint if you looking for speed and factorizations it can't
      yet do. 
