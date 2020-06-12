@@ -8,6 +8,59 @@ is prime. I created a pandas table to view to look at to show how this method wo
 works via algorithims which do not use randomness to reduce errors and shows that all primes can be found be squaring
 a number until all factors are found
 
+** UDADATE JUNE 12th 2020 **
+
+Added fuzzy_factorp2_factorise(num) which utilizes the factorise.py engine from skollman. It uses the SIQS algorthim and
+is incuded in factorise.py for those interseted in using it outright. My engine is setup to factor faster by reducing
+the numbers so you may find fuzzy_Factorp2_factorize much fast than factorise.py alone. If you use sympy's factorint()
+you may be very intersted in utilizing this engine to factor numbers as it know implements factorise.py's SIQS engine.
+Here is the description and some sample output:
+
+     fuzzy_factorp2_factorise utilizes the factorise.py siqs_factorise algorithim. With this utilization
+     you can now factor faster and bigger numbrs than with sympy's factorint. If you use that library you
+     may be very interested in trying this one out. I plan to make it faster and Here are some examples of 
+     the factorization:
+
+     fuzzy_factorp2_factorise(9843798475984375498379437897594953794798539278493345)                                                                                          
+     [] 2170628109368109260943646724938247804806734129767
+     Attempting POLLARD_BRENT
+     POLLARD BRENT Success
+     [5495639]
+     [5495639] 394972833799328751568952532169279642423153
+     Attempting POLLARD_BRENT
+     Attempting factorise.py SIQS
+     factorise.py SIQS Success
+     [5495639, 146558421909808193, 2694985580851807826812721]
+     Out[301]: [5, 907, 5495639, 146558421909808193, 2694985580851807826812721]
+
+     In [291]: fuzzy_factorp2_factorise(984379847598437549837943789759495379479853927849334)                                                                                           
+     [] 492189923799218774918971894879747689739926963924667
+     Attempting POLLARD_BRENT
+     POLLARD BRENT Success
+     [62013403]
+     [62013403] 7936831394323236460978796710765053318230689
+     Attempting POLLARD_BRENT
+     POLLARD BRENT Success
+     [62013403, 487015843]
+     [62013403, 487015843] 16296864893414230183429159430374123
+     Attempting POLLARD_BRENT
+     Attempting factorise.py SIQS
+     factorise.py SIQS Success
+     [62013403, 487015843, 294388349552734637, 55358389413759479]
+     Out[291]: [2, 62013403, 487015843, 294388349552734637, 55358389413759479]
+
+     You can utilize this rather than sympy's factorint if you looking for speed and factorizations it can't
+     yet do. 
+
+     In the future i plan to implment a faster SIQ's engine which should be faster so keep watching here for 
+     updates.
+
+     This update can reduce numbers less than 50 digits rather fast but is logrimically slow on larger numbers
+
+     For exampele it an factor a 60 digit number like 632459103267572196107100983820469021721602147490918660274601  
+     in about an hour to two depending on your machine and factor a 41 digit number like 
+     12785407097419647710079782477202050848441 in a few seconds.
+
 ** UPDATE JUNE 11th 2020 **
 
 fuzzy_factorp2 can factor primes near the powers of two which https://www.alpertron.com.ar/ECM.HTM cannot. Here are 
