@@ -69,7 +69,7 @@ Here is the description and some sample output:
      
      With the new speed increases you can factor a number like this very quickly:
      
-     In [58]: fuzzy_factorp2_factorise(random.randrange(2**200-1, 2**201-1,2))                                                                                                         
+     In [58]: fuzzy_factorp2_factorise(random.randrange(2**180-1, 2**181-1,2))                                                                                                         
      Attempting to factorise: 2402956925397989535742923204519510889236432671327589210309935
      [] 6994795072985254881578072698617348710426689191283535041
      Attempting POLLARD_BRENT
