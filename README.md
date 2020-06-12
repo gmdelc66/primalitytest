@@ -1,5 +1,6 @@
 # primalitytest
-Test the primality of numbers ( non probabilistic test)  and now factor with BRENT_POLLARD AND SIQS
+Test the primality of numbers ( non probabilistic test)  and now factor with BRENT_POLLARD AND SKOLLMAN's SIQS
+Implementation
 
 This is a non probabilistic primality test. It peforms fermat's test from the bitlength of the number down to 2. 
 It then uses my algorithim to determine whether a number is composed of small primes. 
