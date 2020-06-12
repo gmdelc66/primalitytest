@@ -28,7 +28,7 @@ To use the code here and the new function fuzzy_factorp2_factorise(num) use:  fr
 
 ** UDADATE JUNE 12th 2020 **
 
-Added fuzzy_factorp2_factorise(num) which utilizes the factorise.py engine from skollman. It uses the SIQS algorthim and
+Added fuzzy_factorp2_factorise(num) which utilizes the factorise.py engine from skollman. It uses the SIQS algorthim that
 is incuded in factorise.py for those interseted in using it outright. My engine is setup to factor faster by reducing
 the numbers so you may find fuzzy_Factorp2_factorize much fast than factorise.py alone. If you use sympy's factorint()
 you may be very intersted in utilizing this engine to factor numbers as it know implements factorise.py's SIQS engine.
