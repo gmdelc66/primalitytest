@@ -60,6 +60,10 @@ Here is the description and some sample output:
      For exampele it an factor a 60 digit number like 632459103267572196107100983820469021721602147490918660274601  
      in about an hour to two depending on your machine and factor a 41 digit number like 
      12785407097419647710079782477202050848441 in a few seconds.
+     
+ I also included lgcdsuaring.py for college students learning about primes to show how to find prime numbers via
+ squaring rather than square rooting. It's a different approach and thougth it may be beneficial for those learning
+ about primes. And it can be used by importing with: from lgcdsquaring import *
 
 ** UPDATE JUNE 11th 2020 **
 
