@@ -8,6 +8,11 @@ is prime. I created a pandas table to view to look at to show how this method wo
 works via algorithims which do not use randomness to reduce errors and shows that all primes can be found be squaring
 a number until all factors are found
 
+** UDADATE # 2 JUNE 12th 2020 **
+
+I made some speed adjustments to factorise.py's siqs_choose_nf_m function. I commented out the old code for reference
+plesae open up an issues case if you find any issues. The speed increase is anywhere from 1x to 5x.
+
 ** UDADATE JUNE 12th 2020 **
 
 Added fuzzy_factorp2_factorise(num) which utilizes the factorise.py engine from skollman. It uses the SIQS algorthim and
