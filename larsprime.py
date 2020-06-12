@@ -1211,3 +1211,800 @@ def get_factors_lars_prime_brent(hm, offset=-2):
    print(vv)
    return vv
       
+      
+"""  fuzzy_factorp2_factorise utilizes the factorise.py siqs_factorise algorithim. With this utilization
+     you can now factor faster and bigger numbrs than with sympy's factorint. If you use that library you
+     may be very interested in trying this one out. I plan to make it faster and Here are some examples of 
+     the factorization:
+
+     fuzzy_factorp2_factorise(9843798475984375498379437897594953794798539278493345)                                                                                          
+     [] 2170628109368109260943646724938247804806734129767
+     Attempting POLLARD_BRENT
+     POLLARD BRENT Success
+     [5495639]
+     [5495639] 394972833799328751568952532169279642423153
+     Attempting POLLARD_BRENT
+     Attempting factorise.py SIQS
+     factorise.py SIQS Success
+     [5495639, 146558421909808193, 2694985580851807826812721]
+     Out[301]: [5, 907, 5495639, 146558421909808193, 2694985580851807826812721]
+
+     In [291]: fuzzy_factorp2_factorise(984379847598437549837943789759495379479853927849334)                                                                                           
+     [] 492189923799218774918971894879747689739926963924667
+     Attempting POLLARD_BRENT
+     POLLARD BRENT Success
+     [62013403]
+     [62013403] 7936831394323236460978796710765053318230689
+     Attempting POLLARD_BRENT
+     POLLARD BRENT Success
+     [62013403, 487015843]
+     [62013403, 487015843] 16296864893414230183429159430374123
+     Attempting POLLARD_BRENT
+     Attempting factorise.py SIQS
+     factorise.py SIQS Success
+     [62013403, 487015843, 294388349552734637, 55358389413759479]
+     Out[291]: [2, 62013403, 487015843, 294388349552734637, 55358389413759479]
+
+     You can utilize this rather than sympy's factorint if you looking for speed and factorizations it can't
+     yet do. 
+
+     In the future i plan to implment a faster SIQ's engine which should be faster so keep watching here for 
+     updates.
+
+     This update can reduce numbers less than 50 digits rather fast but is logrimically slow on larger numbers
+
+     For exampele it an factor a 60 digit number like 632459103267572196107100983820469021721602147490918660274601  
+     in about 30-45 minutes and factor a 41 digit number like 12785407097419647710079782477202050848441 in a few seconds.
+
+"""
+
+def fuzzy_factorp2_factorise(hm, returnwithpsuedoprimeresults=False):
+   b = num = hm
+   vv = []
+   lprime = False
+   larstest = [-2, -1, 0, 1, 2]
+   while larsprimetest(num) == False and num != 1:
+     for x in larstest:
+       b = get_factor_lars_prime(num, x)[0]
+       if larsprimetest(b) == True:
+         lprime = True
+         break
+     if larsprimetest(b) == False:
+       factors = get_factors_lars_factorise(b)
+       for xx in factors:
+           num = num // xx
+           if returnwithpsuedoprimeresults == False:
+             vv.append(xx)
+           elif returnwithpsuedoprimeresults == True:
+             vv.append((xx, larsprimetest(xx))) 
+     else:
+           num = num // b
+           if returnwithpsuedoprimeresults == False:
+              vv.append(b)
+           elif returnwithpsuedoprimeresults == True:
+              vv.append((b, larsprimetest(b))) 
+     #if returnwithpsuedoprimeresults == False:
+     #   vv.append(b)
+     #elif returnwithpsuedoprimeresults == True:
+     #   vv.append((b, larsprimetest(b)))
+   if num != 1:
+     if lprime == True:
+       if returnwithpsuedoprimeresults == False:
+          vv.append(num)
+       elif returnwithpsuedoprimeresults == True:
+          vv.append((num, larsprimetest(num))) 
+     elif lprime == False:
+       if returnwithpsuedoprimeresults == False:
+          vv.append(b)
+       elif returnwithpsuedoprimeresults == True:
+          vv.append((b, larsprimetest(b))) 
+   #print(vv)
+   return vv
+
+def get_factors_lars_factorise(hm, offset=-2):
+   num = hm
+   vv = []
+   while larsprimetest(num // 1) != True:
+     print(vv, num)
+     a = find_prime_evens_factorise(num, offset)
+     if type(a[5]) == list:
+        vv.extend(a[5])
+        for xx in a[5]:
+           num = num // xx
+        break
+     #print(a)
+     if a[5] == 0:
+       vv.append(a[1])
+     elif a[5] == 2:
+       if num % 2 == 0:
+         vv.append(a[5])
+       else:
+         vv.append(a[3])
+     elif a[5] == 3:
+       if num % 2 == 0:
+          vv.append(2)
+       elif num % 3 == 0:
+          vv.append(3)
+       elif num % 5 == 0:
+          vv.append(5)
+       elif num % a[3] == 0:
+          vv.append(a[3])
+     else:
+       vv.append(a[5])
+     print(vv)
+     num = num // vv[-1]
+   if larsprimetest(num):
+     vv.append(num)
+   print(vv)
+   return vv
+
+
+def find_prime_evens_factorise(hm, offset=-2): 
+  y = 3 
+  prevtemp = 3 
+  if larsprimetest(hm): 
+     print(f"{hm} is already prime") 
+     return hm 
+  while True: 
+    if y.bit_length() > hm.bit_length() -1: 
+      print("Attempting POLLARD_BRENT")
+      prevtemp = pollard_brent_lars_opt(hm) 
+      if hm == prevtemp:
+         print("Attempting factorise.py SIQS")
+         prevtemp = siqs_factorise(hm)
+         print("factorise.py SIQS Success")
+      else:
+            print("POLLARD BRENT Success")
+      break 
+    j = powers(hm, y) 
+    temp = j 
+    if j != 1 and j != 0: 
+      temp = j 
+      temp = hm % temp    
+      if temp == 0: 
+         prevtemp = temp 
+         print("c: break") 
+         break    
+      while temp != 1 and temp != 0: 
+         prevtemp = temp 
+         temp = hm % temp 
+    if temp == 0: 
+      print("h: break") 
+      break 
+    y = Xploder(y) -offset 
+  return hm, j, y.bit_length(), y, temp, prevtemp 
+
+
+
+def pollard_brent_lars_opt(n, limit=21): 
+  if n % 2 == 0: return 2 
+  if n % 3 == 0: return 3 
+
+  # This optimization is contributed by Lars Rocha. I use an equation instead of random numbers for significant 
+  # speed increases on larger numbers  
+  y,c,m = (1<<((n**2).bit_length()+1)), (1<<((n**2).bit_length())) , (1<<((n**2).bit_length()+1))   
+  #print(y,c,m) 
+  g, r, q = 1, 1, 1 
+  ii = 0 
+  while g == 1: 
+      x = y 
+      for i in range(r): 
+          y = (pow(y, 2, n) + c) % n  
+      k = 0 
+      while k < r and g==1: 
+          ys = y 
+          for i in range(min(m, r-k)): 
+              y = (pow(y, 2, n) + c) % n 
+              q = q * abs(x-y) % n 
+          g = math.gcd(q, n) 
+          k += m 
+      r *= 2 
+      ii += 1 
+      if ii > limit: 
+        return n 
+  if g == n: 
+      while True: 
+          ys = (pow(ys, 2, n) + c) % n 
+          g = math.gcd(abs(x - ys), n) 
+          if g > 1: 
+              break  
+  return g 
+
+
+""" from factorise.py instead of importing i include here as importing from the factorise.py library does not seem to work.
+    I include the original factorise.py file in the repository unchanged for those interested in utilizing it. It can factor
+    a 42 digit number in less than a minute and a 60 digit number in about an hour on a modest i7 4 core macbook.
+
+    For exampele it an factor a 60 digit number like 632459103267572196107100983820469021721602147490918660274601  
+    in about 30-45 minutes and factor a 41 digit number like 12785407097419647710079782477202050848441 in a few seconds.
+"""
+SIQS_TRIAL_DIVISION_EPS = 25
+SIQS_MIN_PRIME_POLYNOMIAL = 400
+SIQS_MAX_PRIME_POLYNOMIAL = 4000
+
+class Polynomial:
+    """A polynomial used for the Self-Initializing Quadratic Sieve."""
+
+    def __init__(self, coeff=[], a=None, b=None):
+        self.coeff = coeff
+        self.a = a
+        self.b = b
+
+    def eval(self, x):
+        res = 0
+        for a in self.coeff[::-1]:
+            res *= x
+            res += a
+        return res
+
+
+class FactorBasePrime:
+    """A factor base prime for the Self-Initializing Quadratic Sieve."""
+
+    def __init__(self, p, tmem, lp):
+        self.p = p
+        self.soln1 = None
+        self.soln2 = None
+        self.tmem = tmem
+        self.lp = lp
+        self.ainv = None
+
+small_primes = SieveOfEratosthenes(10000000)
+
+def siqs_factorise(n):
+    """Use the Self-Initializing Quadratic Sieve algorithm to identify
+    one or more non-trivial factors of the given number n. Return the
+    factors as a list.
+    """
+    dig = len(str(n))
+    nf, m = siqs_choose_nf_m(dig)
+
+    factor_base = siqs_factor_base_primes(n, nf)
+    
+    required_relations_ratio = 1.05
+    success = False
+    smooth_relations = []
+    prev_cnt = 0
+    i_poly = 0
+    while not success:
+        print("*** Step 1/2: Finding smooth relations ***")
+        required_relations = round(len(factor_base) * required_relations_ratio)
+        print("Target: %d relations at about 1 relation per second (sometimes faster) required" % required_relations)
+        enough_relations = False
+        while not enough_relations:
+            if i_poly == 0:
+                g, h, B = siqs_find_first_poly(n, m, factor_base)
+            else:
+                g, h = siqs_find_next_poly(n, factor_base, i_poly, g, B)
+            i_poly += 1
+            if i_poly >= 2 ** (len(B) - 1):
+                i_poly = 0
+            sieve_array = siqs_sieve(factor_base, m)
+            enough_relations = siqs_trial_division(
+                n, sieve_array, factor_base, smooth_relations,
+                g, h, m, required_relations)
+
+            if (len(smooth_relations) >= required_relations or
+                i_poly % 8 == 0 and len(smooth_relations) > prev_cnt):
+                #print("Total %d/%d relations." %
+                #      (len(smooth_relations), required_relations))
+                prev_cnt = len(smooth_relations)
+
+        print("*** Step 2/2: Linear Algebra ***")
+        print("Building matrix for linear algebra step...")
+        M = siqs_build_matrix(factor_base, smooth_relations)
+        M_opt, M_n, M_m = siqs_build_matrix_opt(M)
+
+        print("Finding perfect squares using matrix...")
+        perfect_squares = siqs_solve_matrix_opt(M_opt, M_n, M_m)
+
+        print("Finding factors from perfect squares...")
+        factors = siqs_find_factors(n, perfect_squares, smooth_relations)
+        if len(factors) > 1:
+            success = True
+        else:
+            print("Failed to find a solution. Finding more relations...")
+            required_relations_ratio += 0.05
+
+    return factors
+
+def siqs_choose_nf_m(d):
+    """Choose parameters nf (sieve of factor base) and m (for sieving
+    in [-m,m].
+    """
+    # Using similar parameters as msieve-1.52
+    if d <= 34:
+        return 200, 65536
+    if d <= 36:
+        return 300, 65536
+    if d <= 38:
+        return 400, 65536
+    if d <= 40:
+        return 500, 65536
+    if d <= 42:
+        return 600, 65536
+    if d <= 44:
+        return 700, 65536
+    if d <= 48:
+        return 1000, 65536
+    if d <= 52:
+        return 1200, 65536
+    if d <= 56:
+        return 2000, 65536 * 3
+    if d <= 60:
+        return 4000, 65536 * 3
+    if d <= 66:
+        return 6000, 65536 * 3
+    if d <= 74:
+        return 10000, 65536 * 3
+    if d <= 80:
+        return 30000, 65536 * 3
+    if d <= 88:
+        return 50000, 65536 * 3
+    if d <= 94:
+        return 60000, 65536 * 9
+    return 100000, 65536 * 9
+
+
+def siqs_factor_base_primes(n, nf):
+    """Compute and return nf factor base primes suitable for a Quadratic
+    Sieve on the number n.
+    """
+    global small_primes
+    factor_base = []
+    for p in small_primes:
+        if is_quadratic_residue(n, p):
+            t = sqrt_mod_prime(n % p, p)
+            lp = round(math.log2(p))
+            factor_base.append(FactorBasePrime(p, t, lp))
+            if len(factor_base) >= nf:
+                break
+    return factor_base
+
+
+def sqrt_mod_prime(a, p):
+    """Return the square root of a modulo the prime p. Behaviour is
+    undefined if a is not a quadratic residue mod p."""
+    # Algorithm from http://www.mersennewiki.org/index.php/Modular_Square_Root
+    assert a < p
+    #assert is_probable_prime(p)
+    if a == 0:
+        return 0
+    if p == 2:
+        return a
+    if p % 2 == 0:
+        return None
+    p_mod_8 = p % 8
+    if p_mod_8 == 1:
+        # Shanks method
+        q = p // 8
+        e = 3
+        while q % 2 == 0:
+            q //= 2
+            e += 1
+        while True:
+            x = random.randint(2, p - 1)
+            z = pow(x, q, p)
+            if pow(z, 2 ** (e - 1), p) != 1:
+                break
+        y = z
+        r = e
+        x = pow(a, (q - 1) // 2, p)
+        v = (a * x) % p
+        w = (v * x) % p
+        while True:
+            if w == 1:
+                return v
+            k = 1
+            while pow(w, 2 ** k, p) != 1:
+                k += 1
+            d = pow(y, 2 ** (r - k - 1), p)
+            y = (d ** 2) % p
+            r = k
+            v = (d * v) % p
+            w = (w * y) % p
+    elif p_mod_8 == 5:
+        v = pow(2 * a, (p - 5) // 8, p)
+        i = (2 * a * v * v) % p
+        return (a * v * (i - 1)) % p
+    else:
+        return pow(a, (p + 1) // 4, p)
+
+def siqs_find_factors(n, perfect_squares, smooth_relations):
+    """Perform the last step of the Self-Initialising Quadratic Field.
+    Given the solutions returned by siqs_solve_matrix_opt, attempt to
+    identify a number of (not necessarily prime) factors of n, and
+    return them.
+    """
+    factors = []
+    rem = n
+    non_prime_factors = set()
+    prime_factors = set()
+    for square_indices in perfect_squares:
+        fact = siqs_factor_from_square(n, square_indices, smooth_relations)
+        if fact != 1 and fact != rem:
+            if larsprimetest(fact):
+                if fact not in prime_factors:
+                    print ("SIQS: Prime factor found: %d" % fact)
+                    prime_factors.add(fact)
+
+                while rem % fact == 0:
+                    factors.append(fact)
+                    rem //= fact
+
+                if rem == 1:
+                    break
+                if larsprimetest(rem):
+                    factors.append(rem)
+                    rem = 1
+                    break
+            else:
+                if fact not in non_prime_factors:
+                    print ("SIQS: Non-prime factor found: %d" % fact)
+                    non_prime_factors.add(fact)
+
+    if rem != 1 and non_prime_factors:
+        non_prime_factors.add(rem)
+        for fact in sorted(siqs_find_more_factors_gcd(non_prime_factors)):
+            while fact != 1 and rem % fact == 0:
+                print ("SIQS: Prime factor found: %d" % fact)
+                factors.append(fact)
+                rem //= fact
+            if rem == 1 or larsprimetest(rem):
+                break
+
+    if rem != 1:
+        factors.append(rem)
+    return factors
+
+def is_quadratic_residue(a, p):
+    """Return whether a is a quadratic residue modulo a prime p."""
+    return legendre(a, (p - 1) // 2, 1, p) == 1
+
+def legendre(a, q, l, n):
+    x = q ** l
+    if x == 0:
+        return 1
+
+    z = 1
+    a %= n
+
+    while x != 0:
+        if x % 2 == 0:
+            a = (a ** 2) % n
+            x //= 2
+        else:
+            x -= 1
+            z = (z * a) % n
+    return z
+
+
+def siqs_find_first_poly(n, m, factor_base):
+    """Compute the first of a set of polynomials for the Self-
+    Initialising Quadratic Sieve.
+    """
+    p_min_i = None
+    p_max_i = None
+    for i, fb in enumerate(factor_base):
+        if p_min_i is None and fb.p >= SIQS_MIN_PRIME_POLYNOMIAL:
+            p_min_i = i
+        if p_max_i is None and fb.p > SIQS_MAX_PRIME_POLYNOMIAL:
+            p_max_i = i - 1
+            break
+
+    # The following may happen if the factor base is small, make sure
+    # that we have enough primes.
+    if p_max_i is None:
+        p_max_i = len(factor_base) - 1
+    if p_min_i is None or p_max_i - p_min_i < 20:
+        p_min_i = min(p_min_i, 5)
+
+    target = math.sqrt(2 * float(n)) / m
+    target1 = target / ((factor_base[p_min_i].p +
+                         factor_base[p_max_i].p) / 2) ** 0.5
+
+    # find q such that the product of factor_base[q_i] is approximately
+    # sqrt(2 * n) / m; try a few different sets to find a good one
+    best_q, best_a, best_ratio = None, None, None
+    for _ in range(30):
+        a = 1
+        q = []
+
+        while a < target1:
+            p_i = 0
+            while p_i == 0 or p_i in q:
+                p_i = random.randint(p_min_i, p_max_i)
+            p = factor_base[p_i].p
+            a *= p
+            q.append(p_i)
+
+        ratio = a / target
+
+        # ratio too small seems to be not good
+        if (best_ratio is None or (ratio >= 0.9 and ratio < best_ratio) or
+                    best_ratio < 0.9 and ratio > best_ratio):
+            best_q = q
+            best_a = a
+            best_ratio = ratio
+    a = best_a
+    q = best_q
+
+    s = len(q)
+    B = []
+    for l in range(s):
+        fb_l = factor_base[q[l]]
+        q_l = fb_l.p
+        assert a % q_l == 0
+        gamma = (fb_l.tmem * inv_mod(a // q_l, q_l)) % q_l
+        if gamma > q_l // 2:
+            gamma = q_l - gamma
+        B.append(a // q_l * gamma)
+
+    b = sum(B) % a
+    b_orig = b
+    if (2 * b > a):
+        b = a - b
+
+    assert 0 < b
+    assert 2 * b <= a
+    assert ((b * b - n) % a == 0)
+
+    g = Polynomial([b * b - n, 2 * a * b, a * a], a, b_orig)
+    h = Polynomial([b, a])
+    for fb in factor_base:
+        if a % fb.p != 0:
+            fb.ainv = inv_mod(a, fb.p)
+            fb.soln1 = (fb.ainv * (fb.tmem - b)) % fb.p
+            fb.soln2 = (fb.ainv * (-fb.tmem - b)) % fb.p
+
+    return g, h, B
+
+
+def siqs_find_next_poly(n, factor_base, i, g, B):
+    """Compute the (i+1)-th polynomials for the Self-Initialising
+    Quadratic Sieve, given that g is the i-th polynomial.
+    """
+    v = lowest_set_bit(i) + 1
+    z = -1 if math.ceil(i / (2 ** v)) % 2 == 1 else 1
+    b = (g.b + 2 * z * B[v - 1]) % g.a
+    a = g.a
+    b_orig = b
+    if (2 * b > a):
+        b = a - b
+    assert ((b * b - n) % a == 0)
+
+    g = Polynomial([b * b - n, 2 * a * b, a * a], a, b_orig)
+    h = Polynomial([b, a])
+    for fb in factor_base:
+        if a % fb.p != 0:
+            fb.soln1 = (fb.ainv * (fb.tmem - b)) % fb.p
+            fb.soln2 = (fb.ainv * (-fb.tmem - b)) % fb.p
+
+    return g, h
+
+
+def siqs_sieve(factor_base, m):
+    """Perform the sieving step of the SIQS. Return the sieve array."""
+    sieve_array = [0] * (2 * m + 1)
+    for fb in factor_base:
+        if fb.soln1 is None:
+            continue
+        p = fb.p
+        i_start_1 = -((m + fb.soln1) // p)
+        a_start_1 = fb.soln1 + i_start_1 * p
+        lp = fb.lp
+        if p > 20:
+            for a in range(a_start_1 + m, 2 * m + 1, p):
+                sieve_array[a] += lp
+
+            i_start_2 = -((m + fb.soln2) // p)
+            a_start_2 = fb.soln2 + i_start_2 * p
+            for a in range(a_start_2 + m, 2 * m + 1, p):
+                sieve_array[a] += lp
+    return sieve_array
+
+def siqs_trial_divide(a, factor_base):
+    """Determine whether the given number a can be fully factorised into
+    primes from the factors base. If so, return the indices of the
+    factors from the factor base. If not, return None.
+    """
+    divisors_idx = []
+    for i, fb in enumerate(factor_base):
+        if a % fb.p == 0:
+            exp = 0
+            while a % fb.p == 0:
+                a //= fb.p
+                exp += 1
+            divisors_idx.append((i, exp))
+        if a == 1:
+            return divisors_idx
+    return None
+
+
+def siqs_trial_division(n, sieve_array, factor_base, smooth_relations, g, h, m,
+                        req_relations):
+    """Perform the trial division step of the Self-Initializing
+    Quadratic Sieve.
+    """
+    sqrt_n = math.sqrt(float(n))
+    limit = math.log2(m * sqrt_n) - SIQS_TRIAL_DIVISION_EPS
+    for (i, sa) in enumerate(sieve_array):
+        if sa >= limit:
+            x = i - m
+            gx = g.eval(x)
+            divisors_idx = siqs_trial_divide(gx, factor_base)
+            if divisors_idx is not None:
+                u = h.eval(x)
+                v = gx
+                assert (u * u) % n == v % n
+                smooth_relations.append((u, v, divisors_idx))
+                if (len(smooth_relations) >= req_relations):
+                    return True
+    return False
+
+
+def siqs_build_matrix(factor_base, smooth_relations):
+    """Build the matrix for the linear algebra step of the Quadratic Sieve."""
+    fb = len(factor_base)
+    M = []
+    for sr in smooth_relations:
+        mi = [0] * fb
+        for j, exp in sr[2]:
+            mi[j] = exp % 2
+        M.append(mi)
+    return M
+
+def siqs_build_matrix_opt(M):
+    """Convert the given matrix M of 0s and 1s into a list of numbers m
+    that correspond to the columns of the matrix.
+    The j-th number encodes the j-th column of matrix M in binary:
+    The i-th bit of m[i] is equal to M[i][j].
+    """
+    m = len(M[0])
+    cols_binary = [""] * m
+    for mi in M:
+        for j, mij in enumerate(mi):
+            cols_binary[j] += "1" if mij else "0"
+    return [int(cols_bin[::-1], 2) for cols_bin in cols_binary], len(M), m
+
+
+def add_column_opt(M_opt, tgt, src):
+    """For a matrix produced by siqs_build_matrix_opt, add the column
+    src to the column target (mod 2).
+    """
+    M_opt[tgt] ^= M_opt[src]
+
+
+def find_pivot_column_opt(M_opt, j):
+    """For a matrix produced by siqs_build_matrix_opt, return the row of
+    the first non-zero entry in column j, or None if no such row exists.
+    """
+    if M_opt[j] == 0:
+        return None
+    return lowest_set_bit(M_opt[j])
+
+def siqs_solve_matrix_opt(M_opt, n, m):
+    """
+    Perform the linear algebra step of the SIQS. Perform fast
+    Gaussian elimination to determine pairs of perfect squares mod n.
+    Use the optimisations described in [1].
+
+    [1] Koç, Çetin K., and Sarath N. Arachchige. 'A Fast Algorithm for
+        Gaussian Elimination over GF (2) and its Implementation on the
+        GAPP.' Journal of Parallel and Distributed Computing 13.1
+        (1991): 118-122.
+    """
+    row_is_marked = [False] * n
+    pivots = [-1] * m
+    for j in range(m):
+        i = find_pivot_column_opt(M_opt, j)
+        if i is not None:
+            pivots[j] = i
+            row_is_marked[i] = True
+            for k in range(m):
+                if k != j and (M_opt[k] >> i) & 1:  # test M[i][k] == 1
+                    add_column_opt(M_opt, k, j)
+    perf_squares = []
+    for i in range(n):
+        if not row_is_marked[i]:
+            perfect_sq_indices = [i]
+            for j in range(m):
+                if (M_opt[j] >> i) & 1:  # test M[i][j] == 1
+                    perfect_sq_indices.append(pivots[j])
+            perf_squares.append(perfect_sq_indices)
+    return perf_squares
+
+
+def siqs_calc_sqrts(square_indices, smooth_relations):
+    """Given on of the solutions returned by siqs_solve_matrix_opt and
+    the corresponding smooth relations, calculate the pair [a, b], such
+    that a^2 = b^2 (mod n).
+    """
+    res = [1, 1]
+    for idx in square_indices:
+        res[0] *= smooth_relations[idx][0]
+        res[1] *= smooth_relations[idx][1]
+    res[1] = sqrt_int(res[1])
+    return res
+
+def sqrt_int(n):
+    """Return the square root of the given integer, rounded down to the
+    nearest integer.
+    """
+    a = n
+    s = 0
+    o = 1 << (math.floor(math.log2(n)) & ~1)
+    while o != 0:
+        t = s + o
+        if a >= t:
+            a -= t
+            s = (s >> 1) + o
+        else:
+            s >>= 1
+        o >>= 2
+    assert s * s == n
+    return s
+
+
+def kth_root_int(n, k):
+    """Return the k-th root of the given integer n, rounded down to the
+    nearest integer.
+    """
+    u = n
+    s = n + 1
+    while u < s:
+        s = u
+        t = (k - 1) * s + n // pow(s, k - 1)
+        u = t // k
+    return s
+
+
+def siqs_factor_from_square(n, square_indices, smooth_relations):
+    """Given one of the solutions returned by siqs_solve_matrix_opt,
+    return the factor f determined by f = gcd(a - b, n), where
+    a, b are calculated from the solution such that a*a = b*b (mod n).
+    Return f, a factor of n (possibly a trivial one).
+    """
+    sqrt1, sqrt2 = siqs_calc_sqrts(square_indices, smooth_relations)
+    assert (sqrt1 * sqrt1) % n == (sqrt2 * sqrt2) % n
+    return math.gcd(abs(sqrt1 - sqrt2), n)
+
+
+def siqs_find_more_factors_gcd(numbers):
+    res = set()
+    for n in numbers:
+        res.add(n)
+        for m in numbers:
+            if n != m:
+                fact = math.gcd(n, m)
+                if fact != 1 and fact != n and fact != m:
+                    if fact not in res:
+                        print("SIQS: GCD found non-trivial factor: %d" % fact)
+                        res.add(fact)
+                    res.add(n // fact)
+                    res.add(m // fact)
+    return res
+
+
+def lowest_set_bit(a):
+    b = (a & -a)
+    low_bit = -1
+    while (b):
+        b >>= 1
+        low_bit += 1
+    return low_bit
+
+def inv_mod(a, m):
+    """Return the modular inverse of a mod m."""
+    return eea(a, m)[0] % m
+
+
+def eea(a, b):
+    """Solve the equation a*x + b*y = gcd(a,b).
+    Return (x, y, +/-gcd(a,b)).
+    """
+    if a == 0:
+        return (0, 1, b)
+    x = eea(b % a, a)
+    return (x[1] - b // a * x[0], x[0], x[2])
+
