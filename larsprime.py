@@ -1259,6 +1259,7 @@ def get_factors_lars_prime_brent(hm, offset=-2):
 """
 
 def fuzzy_factorp2_factorise(hm, returnwithpsuedoprimeresults=False):
+   print(f"Attempting to factorise: {hm}")
    b = num = hm
    vv = []
    lprime = False
