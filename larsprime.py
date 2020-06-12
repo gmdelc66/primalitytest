@@ -1508,42 +1508,79 @@ def siqs_factorise(n):
 
     return factors
 
+#def siqs_choose_nf_m(d):
+#    """Choose parameters nf (sieve of factor base) and m (for sieving
+#    in [-m,m].
+#    """
+#    # Using similar parameters as msieve-1.52
+#    if d <= 34:
+#        return 200, 65536
+#    if d <= 36:
+#        return 300, 65536
+#    if d <= 38:
+#        return 400, 65536
+#    if d <= 40:
+#        return 500, 65536
+#    if d <= 42:
+#        return 600, 65536
+#    if d <= 44:
+#        return 700, 65536
+#    if d <= 48:
+#        return 1000, 65536
+#    if d <= 52:
+#        return 1200, 65536
+#    if d <= 56:
+#        return 2000, 65536 * 3
+#    if d <= 60:
+#        return 4000, 65536 * 3
+#    if d <= 66:
+#        return 6000, 65536 * 3
+#    if d <= 74:
+#        return 10000, 65536 * 3
+#    if d <= 80:
+#        return 30000, 65536 * 3
+#    if d <= 88:
+#        return 50000, 65536 * 3
+#    if d <= 94:
+#        return 60000, 65536 * 9
+#    return 100000, 65536 * 9
+
 def siqs_choose_nf_m(d):
     """Choose parameters nf (sieve of factor base) and m (for sieving
     in [-m,m].
     """
     # Using similar parameters as msieve-1.52
     if d <= 34:
-        return 200, 65536
+        return 200, 272
     if d <= 36:
-        return 300, 65536
+        return 300, 546
     if d <= 38:
-        return 400, 65536
+        return 400, 1094
     if d <= 40:
-        return 500, 65536
+        return 500, 2188
     if d <= 42:
-        return 600, 65536
+        return 600, 4376
     if d <= 44:
-        return 700, 65536
+        return 700, 8750
     if d <= 48:
-        return 1000, 65536
+        return 1000, 17500
     if d <= 52:
-        return 1200, 65536
+        return 1200, 35000
     if d <= 56:
-        return 2000, 65536 * 3
+        return 2000, 45000
     if d <= 60:
-        return 4000, 65536 * 3
+        return 4000, 60000 # 65536 * 3
     if d <= 66:
-        return 6000, 65536 * 3
+        return 6000, 60000 # 65536 * 3
     if d <= 74:
-        return 10000, 65536 * 3
+        return 10000, 120000 # 65536 * 3
     if d <= 80:
-        return 30000, 65536 * 3
+        return 30000, 120000 # 65536 * 3
     if d <= 88:
-        return 50000, 65536 * 3
+        return 50000, 240000 #65536 * 3
     if d <= 94:
-        return 60000, 65536 * 9
-    return 100000, 65536 * 9
+        return 60000, 240000
+    return 100000, 480000 # 65536 *6
 
 
 def siqs_factor_base_primes(n, nf):
