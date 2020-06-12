@@ -6,7 +6,8 @@ This library has evolved from a primality test to a factorization engine, so i h
 factor very quickly and uses a few different methods for factoring and is a great alternative to sympy's factorint
 
 Give fuzzy_factorp2_factorise(random.randrange(2 ** 180-1, 2 ** 181-1,2))  or
-     fuzzy_factorp2_factorise(2402956925397989535742923204519510889236432671327589210309935) a try to see what 
+     fuzzy_factorp2_factorise(2402956925397989535742923204519510889236432671327589210309935) or 
+     fuzzy_factorp2_factorise(2 ** 1200-1) a try to see what 
      it's capable of.
 
 From the primalitytest directory, you can utilize the entire library just by:  from larsprime import *
