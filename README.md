@@ -31,7 +31,9 @@ To use the code here and the new function fuzzy_factorp2_factorise(num) use:  fr
 Added fuzzy_factorp2_factorise(num) which utilizes the factorise.py engine from skollman. It uses the SIQS algorthim that
 is incuded in factorise.py for those interseted in using it outright. My engine is setup to factor faster by reducing
 the numbers so you may find fuzzy_Factorp2_factorize much fast than factorise.py alone. If you use sympy's factorint()
-you may be very intersted in utilizing this engine to factor numbers as it know implements factorise.py's SIQS engine.
+you may be very intersted in utilizing this engine to factor numbers as it now implements factorise.py's SIQS engine, and
+can factor numbers that other engines can't yet. My short term goal is to implement PSIQS from https://www.rieselprime.de/ziki/Self-initializing_quadratic_sieve so keep watching here for updates on my progress, I think
+in 2-3 weeks i should have something implemented.
 Here is the description and some sample output:
 
      fuzzy_factorp2_factorise utilizes the factorise.py siqs_factorise algorithim. With this utilization
