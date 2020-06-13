@@ -680,8 +680,8 @@ def larsrandomprimemaker(smallend, largeend, withstats=False):
     is interested. I created a .txt file in this directory to show how i came up with the pow list. I simply couldn't find
     any numbers that didn't fail the test when compared to isprime from sympy other than the powlist. I thought that was
     interesting. If anyone finds a number that fails, let me know. I'd be interested in seeing what number in the pow list
-    is missing since i ran a weeks long stress test in making that text file which only came up with the numbers in the 
-    pow list i use here.
+    is missing since i ran a weeks long random test and another stress test in making that text file which only came up 
+    with the numbers in the pow list i use here.
 """ 
 
 def fast_probabilistic_isprime(hm):
