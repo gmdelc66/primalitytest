@@ -677,18 +677,29 @@ def larsrandomprimemaker(smallend, largeend, withstats=False):
     test, that dont use mersenne numbers to generate the prime. So don't use it for production because you can use mersenne numbers to
     generate primes that don't pass the test. Either way i include it here for educational purposes and it's uncanny ability to
     generate primes that were not generated from a mersenne number. I can include more information on that here if anyone
-    is interested
+    is interested. I created a .txt file in this directory to show how i came up with the pow list. I simply couldn't find
+    any numbers that didn't fail the test when compared to isprime from sympy other than the powlist. I thought that was
+    interesting. If anyone finds a number that fails, let me know. I'd be interested in seeing what number in the pow list
+    is missing since i ran a weeks long stress test in making that text file which only came up with the numbers in the 
+    pow list i use here.
 """ 
 
 def fast_probabilistic_isprime(hm):
+    powlist = [2,3,5,17,257,641,65537]
+    if hm % 2 == 0:
+      return False
     if hm < 2**50:
-       return "This is to only be used on numbers greater than 2**50"
+       #print("This is to only be used on numbers greater than 2**50")
+       return "Unknown"
+    if (hm+1 != 0) and (hm+1 & (hm) == 0):
+       #print("fast_probabilistic_isprime cannot determine primes -1 off the powers of two")
+       return "Unknown"
     if lars_last_modulus_powers_of_two(hm+hm) != 2:
        return False
-    if pow(2, hm-1, hm) == 1:
-       return True
-    else:
-       return False
+    for xx in powlist:
+      if pow(xx, hm-1, hm) != 1:
+        return False
+    return True
 
 """ This uses the probabalistic fast isprime function to find the next prime. Do not use for production i include
     if here because it is very good at making primes, but you can use mersenne numbers to generate primes that don't pass
