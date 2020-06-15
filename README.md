@@ -19,6 +19,11 @@ is prime. I created a pandas table to view to look at to show how this method wo
 works via algorithims which do not use randomness to reduce errors and shows that all primes can be found be squaring
 a number until all factors are found
 
+** UPDATE JUNE 15th 2020 **
+
+I added an easter egg. A message about factoring and security. Have fun running it and ponder what it means about
+it's security! To run, use: python3 secretmessage.py
+
 ** UPDATE JUNE 14th 2020 **
 
 I added awesomenumberswecanfactor.txt so you can try out some awesomely large factors that work with the non SIQs non BRENT 
