@@ -26,9 +26,11 @@ a number until all factors are found
 
 ** UPDATE JUNE 15th 2020 **
 
-I added a factoring easter egg. As far as i know only fuzzy factor can factor that (N) number in about 60 seconds, but 
-you'll be able to in just nano seconds once you decode it's secret cipher by running the algorithm. It's cipher is a  message 
-about factoring and security. Have fun running it and ponder what it means about it's security!
+I added a factoring easter egg. As far as i know only fuzzy factor can factor that (N) number (from secretmessage.py, which 
+I built for this demonstration purposes) in about 60 seconds, but you'll be able to in just nano seconds once you decode it's 
+secret cipher by running the algorithm. It's cipher is a  message about factoring and security. Have fun running it and ponder 
+what it means about it's security!I hope you enjoy this easter egg, This is the kind of stuff that i would expect to see in
+coding contests so i thought i'd share it here.
 To run, use: python3 secretmessage.py
 
 ** UPDATE JUNE 14th 2020 **
