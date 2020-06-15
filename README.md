@@ -2,6 +2,10 @@
 Test the primality of numbers ( non probabilistic test)  and now factor with BRENT_POLLARD AND SKOLLMAN's SIQS
 Implementation
 
+To use this library simply do: from larsprime import *
+
+You will most likely be using fuzzy_factorp2_factorise(num) but there are many different modules included.
+
 This library has evolved from a primality test to a factorization engine, so i hope you enjoy the results. It can
 factor very quickly and uses a few different methods for factoring and is a great alternative to sympy's factorint
 
