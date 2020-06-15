@@ -19,6 +19,12 @@ is prime. I created a pandas table to view to look at to show how this method wo
 works via algorithims which do not use randomness to reduce errors and shows that all primes can be found be squaring
 a number until all factors are found
 
+** UPDATE JUNE 14th 2020 **
+
+I added awesomenumberswecanfactor.txt so you can try out some awesomely large factors that work with the non SIQs non BRENT 
+POLLARD Part of the engine. I'm working on a new SIQs engine which i hope will be much faster so keep watching here for 
+updates.
+
 ** UDADATE # 2 JUNE 12th 2020 **
 
 I made some speed adjustments to factorise.py's siqs_choose_nf_m function. I commented out the old code for reference
