@@ -21,8 +21,10 @@ a number until all factors are found
 
 ** UPDATE JUNE 15th 2020 **
 
-I added an easter egg. A message about factoring and security. Have fun running it and ponder what it means about
-it's security! To run, use: python3 secretmessage.py
+I added a factoring easter egg. As far as i know only fuzzy factor can factor that (N) number but you'll be able to in 
+just nano seconds once you decode it's secret cipher by running the algorithm. It's cipher is a  message about 
+factoring and security. Have fun running it and ponder what it means about it's security!
+To run, use: python3 secretmessage.py
 
 ** UPDATE JUNE 14th 2020 **
 
