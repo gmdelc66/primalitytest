@@ -1351,77 +1351,98 @@ def get_factors_lars_factorise(hm, offset=-2):
    return vv
 
 
-def find_prime_evens_factorise(hm, offset=-2): 
-  y = 3 
-  prevtemp = 3 
-  if larsprimetest(hm): 
-     print(f"{hm} is already prime") 
-     return hm 
-  while True: 
-    if y.bit_length() > hm.bit_length() -1: 
-      print("Attempting POLLARD_BRENT")
-      prevtemp = pollard_brent_lars_opt(hm) 
+def trial_division(hm):
+    for xx in small_primes:
+       if hm%xx == 0: return xx
+    return hm
+
+def find_prime_evens_factorise(hm, offset=-2):
+  y = 3
+  prevtemp = 3
+  if larsprimetest(hm):
+     print(f"{hm} is already prime")
+     return hm
+  while True:
+    if y.bit_length() > hm.bit_length() -1:
+      if len(str(hm)) < 17:
+         print(f"Attempting  to factorise {hm} with trial division")
+         prevtemp = trial_division(hm)
+         if prevtemp != hm:
+            print(f"Trial Division Success")
+            break
+         else:
+           print(f"Attempting  to factorise {hm} with POLLARD_BRENT")
+           while prevtemp != hm:
+              prevtemp = pollard_brent_lars_opt(hm)
+           print(f"POLLARD_BRENT Success")
+      else:
+         print(f"Attempting  to factorise {hm} with POLLARD_BRENT")
+         prevtemp = pollard_brent_lars_opt(hm)
       if hm == prevtemp:
-         print("Attempting factorise.py SIQS")
+         print(f"Attempting to factorise {hm} with factorise.py SIQS")
          prevtemp = siqs_factorise(hm)
          print("factorise.py SIQS Success")
       else:
             print("POLLARD BRENT Success")
-      break 
-    j = powers(hm, y) 
-    temp = j 
-    if j != 1 and j != 0: 
-      temp = j 
-      temp = hm % temp    
-      if temp == 0: 
-         prevtemp = temp 
-         print("c: break") 
-         break    
-      while temp != 1 and temp != 0: 
-         prevtemp = temp 
-         temp = hm % temp 
-    if temp == 0: 
-      print("h: break") 
-      break 
-    y = Xploder(y) -offset 
-  return hm, j, y.bit_length(), y, temp, prevtemp 
+      break
+    j = powers(hm, y)
+    temp = j
+    if j != 1 and j != 0:
+      temp = j
+      temp = hm % temp
+      if temp == 0:
+         prevtemp = temp
+         print("c: break")
+         break
+      while temp != 1 and temp != 0:
+         prevtemp = temp
+         temp = hm % temp
+    if temp == 0:
+      print("h: break")
+      break
+    y = Xploder(y) -offset
+  return hm, j, y.bit_length(), y, temp, prevtemp
 
 
+def pollard_brent_lars_opt(n, limit=21):
+  if n % 2 == 0: return 2
+  if n % 3 == 0: return 3
 
-def pollard_brent_lars_opt(n, limit=21): 
-  if n % 2 == 0: return 2 
-  if n % 3 == 0: return 3 
+  # This optimization is contributed by Lars Rocha. I use an equation instead of random numbers for significant
+  # speed increases on larger numbers. Small numbers less than 16 in length require the random structure.
+  length = len(str(n))
+  if length > 16:
+     y,c,m = (1<<((n**2).bit_length()+1)), (1<<((n**2).bit_length())) , (1<<((n**2).bit_length()+1))
+  else:
+     y, c, m = random.randint(1, n-1), random.randint(1, n-1), random.randint(1, n-1)
 
-  # This optimization is contributed by Lars Rocha. I use an equation instead of random numbers for significant 
-  # speed increases on larger numbers  
-  y,c,m = (1<<((n**2).bit_length()+1)), (1<<((n**2).bit_length())) , (1<<((n**2).bit_length()+1))   
-  #print(y,c,m) 
-  g, r, q = 1, 1, 1 
-  ii = 0 
-  while g == 1: 
-      x = y 
-      for i in range(r): 
-          y = (pow(y, 2, n) + c) % n  
-      k = 0 
-      while k < r and g==1: 
-          ys = y 
-          for i in range(min(m, r-k)): 
-              y = (pow(y, 2, n) + c) % n 
-              q = q * abs(x-y) % n 
-          g = math.gcd(q, n) 
-          k += m 
-      r *= 2 
-      ii += 1 
-      if ii > limit: 
-        return n 
-  if g == n: 
-      while True: 
-          ys = (pow(ys, 2, n) + c) % n 
-          g = math.gcd(abs(x - ys), n) 
-          if g > 1: 
-              break  
-  return g 
-
+  #print(y,c,m)
+  g, r, q = 1, 1, 1
+  ii = 0
+  while g == 1:
+      x = y
+      for i in range(r):
+          y = (pow(y, 2, n) + c) % n
+      k = 0
+      while k < r and g==1:
+          ys = y
+          for i in range(min(m, r-k)):
+              y = (pow(y, 2, n) + c) % n
+              q = q * abs(x-y) % n
+          g = math.gcd(q, n)
+          k += m
+      r *= 2
+      if length > 16:
+        ii += 1
+        if ii > limit:
+          return n
+  if g == n:
+      while True:
+          ys = (pow(ys, 2, n) + c) % n
+          g = math.gcd(abs(x - ys), n)
+          if g > 1:
+              break
+  return g
 
 """ from factorise.py instead of importing i include here as importing from the factorise.py library does not seem to work.
     I include the original factorise.py file in the repository unchanged for those interested in utilizing it. It can factor
