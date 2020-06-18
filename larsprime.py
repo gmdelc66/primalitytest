@@ -1482,7 +1482,7 @@ class FactorBasePrime:
         self.lp = lp
         self.ainv = None
 
-small_primes = SieveOfEratosthenes(10000000)
+small_primes = list(primes_sieve2(10000000))
 
 def siqs_factorise(n):
     """Use the Self-Initializing Quadratic Sieve algorithm to identify
