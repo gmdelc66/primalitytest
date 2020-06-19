@@ -31,6 +31,34 @@
     Attempting to factorise 513500904441903491 with PrimeFinderLucasLehmer 
     Attempting to factorise 110454055590859 with PrimeFinderLucasLehmer
     Out[8]: [3, 3, 3, 101, 29, 239, 281, 4649, 909091, 121499449]
+    
+    In [11]:  sfactorPFLLint(2727272727272727272727272727272727272727272727272727272727272727272727)                                                                                          
+    Attempting to factorise 2727272727272727272727272727272727272727272727272727272727272727272727 with PrimeFinderLucasLehmer
+    Attempting to factorise 909090909090909090909090909090909090909090909090909090909090909090909 with PrimeFinderLucasLehmer
+    Attempting to factorise 303030303030303030303030303030303030303030303030303030303030303030303 with PrimeFinderLucasLehmer
+    Attempting to factorise 101010101010101010101010101010101010101010101010101010101010101010101 with PrimeFinderLucasLehmer
+    Attempting to factorise 2463661000246366100024636610002463661000246366100024636610002463661 with PrimeFinderLucasLehmer
+    Attempting to factorise 34699450707695297183445586056372727619721779804225699107183133291 with PrimeFinderLucasLehmer
+    Attempting to factorise 145185986224666515411906217809090910542768953155756063209971269 with PrimeFinderLucasLehmer
+    Attempting to factorise 535741646585485296722901172727272732630143738582125694501739 with PrimeFinderLucasLehmer
+    Attempting to factorise 115238039704341857759281818181818182970562215225236759411 with PrimeFinderLucasLehmer
+    Attempting to factorise 12676057606901535338167618323816761959142252252253521 with PrimeFinderLucasLehmer
+    Attempting to factorise 102597774254368927310726892731072690299085011471 with PrimeFinderLucasLehmer
+    Attempting to factorise 112857540394051780636621518342028125126181 with PrimeFinderLucasLehmer
+    Attempting to factorise 27210514393617801994618420840059911 with PrimeFinderLucasLehmer
+    PrimeFinderLucasLehmer did not succeed
+    Attempting to factorise 27210514393617801994618420840059911 with BrentPollard
+    Brent Pollard did not succeed
+    Attempting to factorise 27210514393617801994618420840059911 with factorise.py SIQS
+    *** Step 1/2: Finding smooth relations ***
+    Target: 315 relations at about 1 relation per second (sometimes faster) required
+    *** Step 2/2: Linear Algebra ***
+    Building matrix for linear algebra step...
+    Finding perfect squares using matrix...
+    Finding factors from perfect squares...
+    SIQS: Prime factor found: 102598800232111471
+    Out[11]: 
+    [3, 3, 3, 41, 71, 239, 271, 4649, 9091, 123551, 909091, 4147571, 102598800232111471, 265212793249617641]
 
 """
     
