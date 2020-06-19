@@ -24,6 +24,17 @@ is prime. I created a pandas table to view to look at to show how this method wo
 works via algorithims which do not use randomness to reduce errors and shows that all primes can be found be squaring
 a number until all factors are found
 
+** UPDATE JUNE 19th 2020 **
+
+While working on https://stackoverflow.com/questions/62365336/how-do-researchers-manage-to-find-such-large-primes I
+tweaked the math of the LucasLehmer test to be a factorization engine. I included a new file, findprimell.py, which can
+be used by: from findprimell import *
+
+Try to see it in action:
+sfactorPFLLint(272727272727272727272727272727272727272727272727272727272727272727272727) 
+or
+sfactorPFLLint(2727272727272727272727272727272727272727272727272727272727272727272727)
+ 
 ** UPDATE JUNE 15th 2020 **
 
 I added a factoring easter egg. As far as i know only fuzzy factor can factor that (N) number (from secretmessage.py, which 
