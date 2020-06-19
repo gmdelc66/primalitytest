@@ -38,17 +38,45 @@ from larsprime import *
 
 def sfactorPFLLint(hm):
   vv = []
+  nomorePFLL = False
+  nomoreBP = False
+  nomoreSIQS = False
   while True:
-   prime = sfactorintPFLL(hm)
-   if prime != False:
-      hm = hm//prime
-      vv.append(prime)
-   else: 
-     print("Pseudoprime last answer")
-     vv.append(hm)
-     break
-   if larsprimetest(hm):
-     vv.append(hm)
+   if larsprimetest(hm) == True or hm == 1:
+      vv.append(hm)
+      break
+   if nomorePFLL == False:
+     prime = sfactorintPFLL(hm)
+     if prime != False:
+       hm = hm//prime
+       vv.append(prime)
+       continue
+     else: 
+       nomorePFLL = True
+       if larsprimetest(hm):
+         vv.append(hm)
+         break
+       continue
+   if nomoreBP == False:
+     print(f"Attempting to factorise {hm} with BrentPollard")
+     prime = pollard_brent_lars_opt(hm)
+     if prime != hm:
+        hm = hm//prime
+        vv.append(prime)
+        continue
+     else:
+        print(f"Brent Pollard did not succeed")
+        nomoreBP = True
+        if larsprimetest(hm) == True:
+           vv.append(hm)
+           break
+        continue
+   if nomoreSIQS == False:
+     print(f"Attempting to factorise {hm} with factorise.py SIQS")
+     prime = siqs_factorise(hm)
+     vv.extend(prime)
+     for xx in prime:
+        hm = hm//xx
      break
   return vv
 
