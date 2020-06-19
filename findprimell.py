@@ -168,6 +168,14 @@ def sfactorintPFLL(hm):
     
     In [198]: PrimeFinderLucasLehmer4(1009732533765211)                                                                                                                                       
     Out[198]: 11344301
+    
+    And here are examples for the numbers at https://stackoverflow.com/questions/4078902/cracking-short-rsa-keys
+    
+    In [199]: PrimeFinderLucasLehmer4(10142789312725007)                                                                                                                                      
+    Out[199]: 100711423
+    
+    In [200]: PrimeFinderLucasLehmer4(8114231289041741)                                                                                                                                       
+    Out[200]: 1839221
 """
 
 def PrimeFinderLucasLehmer4(N):
