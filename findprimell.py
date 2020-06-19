@@ -59,6 +59,24 @@
     SIQS: Prime factor found: 102598800232111471
     Out[11]: 
     [3, 3, 3, 41, 71, 239, 271, 4649, 9091, 123551, 909091, 4147571, 102598800232111471, 265212793249617641]
+    
+    In [47]: sfactorPFLLint(2413383613260094712864723197651621285243771156746061239)                                                                                                          
+    Attempting to factorise 2413383613260094712864723197651621285243771156746061239 with PrimeFinderLucasLehmer
+    Attempting to factorise 804461204420031570954907732550540428414590385582020413 with PrimeFinderLucasLehmer
+    Attempting to factorise 9306477301512379206104831417389206839515859205493 with PrimeFinderLucasLehmer
+    Attempting to factorise 327358588114684976823132414695881207200951817 with PrimeFinderLucasLehmer
+    PrimeFinderLucasLehmer did not succeed
+    Attempting to factorise 327358588114684976823132414695881207200951817 with BrentPollard
+    Brent Pollard did not succeed
+    Attempting to factorise 327358588114684976823132414695881207200951817 with factorise.py SIQS
+    *** Step 1/2: Finding smooth relations ***
+    Target: 1050 relations at about 1 relation per second (sometimes faster) required
+    *** Step 2/2: Linear Algebra ***
+    Building matrix for linear algebra step...
+    Finding perfect squares using matrix...
+    Finding factors from perfect squares...
+    SIQS: Prime factor found: 4765792358854260848501601750691
+    Out[47]: [3, 86441, 28429, 4765792358854260848501601750691, 68689225938787]
 
 """
     
