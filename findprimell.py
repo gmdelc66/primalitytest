@@ -159,6 +159,13 @@ def sfactorintPFLL(hm):
     else:
       return find
 
+""" 
+    I devised a method by tweaking the math for the Lucas Lehmer test and added looking for primes
+    near the powers of two. This is the result of the work I did and it finds primes very well. I hope
+    you enjoy it, it's actually not bad as a prime finder.
+    
+"""
+
 def PrimeFinderLucasLehmer4(N):
    p = 1<<N.bit_length()-1
    if p == 2:
