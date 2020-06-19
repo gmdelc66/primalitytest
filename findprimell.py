@@ -164,6 +164,10 @@ def sfactorintPFLL(hm):
     near the powers of two. This is the result of the work I did and it finds primes very well. I hope
     you enjoy it, it's actually not bad as a prime finder.
     
+    Here is an example:
+    
+    In [198]: PrimeFinderLucasLehmer4(1009732533765211)                                                                                                                                       
+    Out[198]: 11344301
 """
 
 def PrimeFinderLucasLehmer4(N):
