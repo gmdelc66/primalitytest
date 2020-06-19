@@ -17,6 +17,11 @@ Give fuzzy_factorp2_factorise(random.randrange(2 ** 180-1, 2 ** 181-1,2))  or
 
 From the primalitytest directory, you can utilize the entire library just by:  from larsprime import *
 
+I included a secretmessage.py that includes a number that only fuzzy_factorp2_factorise(num) can factor, with a secret message 
+about it's security. Try factoring the (N) in you favorite engine and see that only fuzzy_factor can factor it in less than 2 minutes. To run from the command line:  python3 secretmessage.py
+
+Give it two minutes to factor and see from the secret message you could actually factor the number in nano seconds if you knew the hexified secret of the number. No engine i know of can factor(N). I desigined this number so we can factor it and include a message about its insecurity, even though it's hard to factor, it's easy to factor once you know it's secret
+
 This is a non probabilistic primality test. It peforms fermat's test from the bitlength of the number down to 2. 
 It then uses my algorithim to determine whether a number is composed of small primes. 
 If the fermat tests fail, then a prime should be found using my algorithm in the numer itself. If not the number
