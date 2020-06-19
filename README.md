@@ -22,6 +22,7 @@ about it's security. Try factoring the (N) in you favorite engine and see that o
 
 Give it two minutes to factor and see from the secret message you could actually factor the number in nano seconds if you knew the hexified secret of the number. No engine i know of can factor(N). I desigined this number so we can factor it and include a message about its insecurity, even though it's hard to factor, it's easy to factor once you know it's secret
 
+A note about the larsprimetest(num) function:
 This is a non probabilistic primality test. It peforms fermat's test from the bitlength of the number down to 2. 
 It then uses my algorithim to determine whether a number is composed of small primes. 
 If the fermat tests fail, then a prime should be found using my algorithm in the numer itself. If not the number
