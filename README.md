@@ -34,7 +34,9 @@ Try to see it in action:
 sfactorPFLLint(272727272727272727272727272727272727272727272727272727272727272727272727) 
 or
 sfactorPFLLint(2727272727272727272727272727272727272727272727272727272727272727272727)
- 
+
+It can factor the numbers itself in seconds from: https://stackoverflow.com/questions/4078902/cracking-short-rsa-keys
+
 ** UPDATE JUNE 15th 2020 **
 
 I added a factoring easter egg. As far as i know only fuzzy factor can factor that (N) number (from secretmessage.py, which 
