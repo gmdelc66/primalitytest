@@ -180,8 +180,10 @@ def sfactorintPFLL(hm):
 
 def PrimeFinderLucasLehmer4(N):
    p = 1<<N.bit_length()-1
-   if p == 2:
-     return True
+   if N == 2:
+     return 2
+   if N == 3:
+     return 3
    s = 4
    M = pow(p, 2) - 1
    for x in range (1, 100000):
