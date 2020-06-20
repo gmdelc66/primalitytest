@@ -184,14 +184,9 @@ def PrimeFinderLucasLehmer4(N):
      return True
    s = 4
    M = pow(p, 2) - 1
-   for x in range (1, 1000000):
+   for x in range (1, 100000):
      s = (((s * N ) - 2 )) % M
-     xx = [math.gcd(s, N),
-           math.gcd(s*p+2, N),
-           math.gcd(s*p+1, N),
-           math.gcd(s*p, N),
-           math.gcd(s*p-1, N),
-           math.gcd(s*p-2, N)]
+     xx = [math.gcd(s, N)] + [math.gcd(s*p+x,N) for x in range(7)] + [math.gcd(s*p-x,N) for x in range(1,7)] 
      try:
         prime = min(list(filter(lambda x: x not in set([1]),xx)))
      except:
@@ -200,5 +195,5 @@ def PrimeFinderLucasLehmer4(N):
         continue
      else:
         break
-   #print (x, prime)
+   #print (s, x, prime, xx)
    return prime
