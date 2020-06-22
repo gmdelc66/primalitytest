@@ -1,6 +1,6 @@
 # primalitytest
 Test the primality of numbers ( non probabilistic test)  and now factor with BRENT_POLLARD AND SKOLLMAN's SIQS
-Implementation
+Implementation. ( And a new repo coming soon using Alperton's ECM )
 
 To use this library simply do: from larsprime import *
 
@@ -22,13 +22,54 @@ about it's security. Try factoring the (N) in you favorite engine and see that o
 
 Give it two minutes to factor and see from the secret message you could actually factor the number in nano seconds if you knew the hexified secret of the number. No engine i know of can factor(N). I desigined this number so we can factor it and include a message about its insecurity, even though it's hard to factor, it's easy to factor once you know it's secret
 
-A note about the larsprimetest(num) function:
-This is a non probabilistic primality test. It peforms fermat's test from the bitlength of the number down to 2. 
-It then uses my algorithim to determine whether a number is composed of small primes. 
-If the fermat tests fail, then a prime should be found using my algorithm in the numer itself. If not the number
-is prime. I created a pandas table to view to look at to show how this method works. It is non probabalistic and 
-works via algorithims which do not use randomness to reduce errors and shows that all primes can be found be squaring
-a number until all factors are found
+Until the new repo comes out, try fuzzy_factorp2_factorise(num) and sfactorPFLLint(num).  The former can be used by:
+from larsprime import *
+and the later:
+from findprimell import *
+
+They both utilize BRENT POLLARD AND FACTORISE.py. but underneath they both utilize different engines to factor smaller 
+numbers. 
+fuzzy_factorp2_factorise uses the powers of 2 to calculate the small primes (which allows it decode the secret message in 
+secremessage.py and sfactorPFLLint uses a factorization engine i created from the Lucas-Lehmer Prime test. I modified the math 
+of it to make it a factorization engine. Both work great. Other good featues of lars prime are 
+random_powers_of_2_prime_finder(smallnum) to create primes which can be used to multiply together to test the engines. 
+fuzzy_factorp2_factorise can factorize a few thousand Quintillion numbers near the powers of two that ECM cannot, so it will 
+be the underpinning of the new engine. see: python3 secretmessage.py and awesomenumberswecanfactor.txt for more informtation. 
+Try those number in any engine and only fuzzy factor can factor them. I hope to have the new repo up and running by end of 
+July. 
+Until then enjoy this engine, it's still quite fast and better than sympy's factorint and as far as i know the best 
+factorization engine for python.
+
+** UPDATE JUNE 21st 2020 **
+
+COMING SOON A NEW REPO WITH ALPERTON ECM. CALLED SFACTORINT
+
+Here is a test run of a factor with ALPERTON's ECM under ubuntu. I haven't got ALPERTONS calculator to compile under osx yet,
+but hopefully soon. The new repo will be called sfactorint. It will be PIP installable. For now though here is a hint of what's to come:
+
+Ok, under ubunutu i got the Alperton ECM Calculator to compile. I'm going to be changing
+this to a new repo, that compiles and pip installs and you'll soon have Alperton's calculator
+that works with python for fast, fast factorization. It can factor a 60 digit number in seconds.
+
+
+import time  
+start = time.time()  
+fuzzy_factorp2_factorise(632459103267572196107100983820469021721602147490918660274601)  
+end = time.time()  
+print(end-start)  
+
+
+From Stackoverflow: https://stackoverflow.com/questions/61467904/craking-long-rsa-keys-from-public-key-only/61468947
+
+Attempting to factorise: 632459103267572196107100983820469021721602147490918660274601
+[] 632459103267572196107100983820469021721602147490918660274601
+Attempting  to factorise 632459103267572196107100983820469021721602147490918660274601 with POLLARD_BRENT
+Attempting to factorise 632459103267572196107100983820469021721602147490918660274601 with Alperton ECM
+Alperton ECM SIQS Success
+[972033825117160941379425504503, 650655447295098801102272374367]
+19.50670623779297  # Less than a minute
+
+** END JUNE 21st 2020 UPDATE **
 
 ** UPDATE JUNE 19th 2020 **
 
