@@ -79,6 +79,16 @@ To show more of the power of Alpertons Engine here are two number we factor in l
     [935014548440225175815525480974308169870487261, 9416102790482313143527]
     Out[58]: [935014548440225175815525480974308169870487261, 9416102790482313143527]
     # Less than a minute factorization
+    
+    In [61]: sfactorint(random_powers_of_2_prime_finder(95, withstats=False)*random_powers_of_2_prime_finder(135, withstats=False))                                                
+    Attempting to factorise: 466560005794735402042454434351319659915584814915000650616735677512903
+    [] 466560005794735402042454434351319659915584814915000650616735677512903
+    Attempting  to factorise 466560005794735402042454434351319659915584814915000650616735677512903 with POLLARD_BRENT
+    Attempting to factorise 466560005794735402042454434351319659915584814915000650616735677512903 with Alperton ECM
+    Alperton ECM Success
+    114979000759810378698490339575093930957167, 31147605456202784218829895209]
+    Out[61]: [14979000759810378698490339575093930957167, 31147605456202784218829895209]
+    # Less than 2 minutes factorization
 
 To use random_powers_of_2_prime_finder use: from larsprime import random_powers_of_2_prime_finder. It cretaes an equtaion to make the prime number which can be seen via withstats=True, instead of finding a random prime and looking for the next prime.
 
