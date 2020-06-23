@@ -6,11 +6,11 @@ To use this library simply do: from larsprime import *
 
 ** UPDATE JUNE 22nd **
 
-I have now included sfactorint(num) which utilizes Alperton;s ECM. Some caveates. This works under ubuntu and should
+I have now included sfactorint(num) which utilizes Alperton's ECM. Some caveates. This works under ubuntu and should
 with other distributions, but not under OSX due to a compiler issue. 
 
 To use you must do the following manual commands( my apologies on this, i expect to make sfactorint into a new repo
-thta does this all automatically, but you will find it worth your while if you take the time to do it under linux.
+that does this all automatically, but you will find it worth your while if you take the time to do it under linux.
 
 from the primality directory clone, you must:
 
