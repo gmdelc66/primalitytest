@@ -1,0 +1,1 @@
+I have included alperton from https://github.com/alpertron/calculators  so you can use it with factorint
