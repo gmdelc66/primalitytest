@@ -7,7 +7,9 @@ To use this library simply do: from larsprime import *
 ** UPDATE JUNE 22nd 2020 **
 
 I have now included sfactorint(num) which utilizes Alperton's ECM. Some caveates. This works under ubuntu and should
-with other distributions, but not under OSX due to a macro compiler issue that im looking into. 
+with other distributions, I tested under termux an android app and it works there too,
+but not under OSX due to a macro compiler issue that im looking into. I opened a ticket with Alperton who let me know 
+that it's a macro issue, and i'm investigating it now so se can get this compiled there as well,
 
 To use you must do the following manual commands( my apologies on this, i expect to make sfactorint into a new repo
 that does this all automatically, but you will find it worth your while if you take the time to do it under linux.
