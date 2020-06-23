@@ -90,7 +90,7 @@ To show more of the power of Alpertons Engine here are two number we factor in l
     Out[61]: [14979000759810378698490339575093930957167, 31147605456202784218829895209]
     # Less than 2 minutes factorization
 
-To use random_powers_of_2_prime_finder use: from larsprime import random_powers_of_2_prime_finder. It cretaes an equtaion to make the prime number which can be seen via withstats=True, instead of finding a random prime and looking for the next prime.
+To use random_powers_of_2_prime_finder use: from larsprime import random_powers_of_2_prime_finder. It creates an equtaion to make the prime number which can be seen via withstats=True, instead of finding a random prime and looking for the next prime.
 
 ** END JUNE 22nd 2020 UPDATE **
 
