@@ -4,6 +4,18 @@ Implementation. ( And a new repo coming soon using Alperton's ECM )
 
 To use this library simply do: from larsprime import *
 
+** UPDATE JUNE 23rd 2020 **
+
+OSX Now compiles! Use the same instructions as in the JUNE 22nd Update and OSX users now have access to sfactorint
+and Alperton ECM library for very fast factorization!
+
+To use simply follow the instructions on the June 22nd update and from the primalitytest cloned directory
+under ipython3, use: from larsprime import sfactorint
+
+And have the same capabalities as Alperton's ECM Library! On OSX, linux, and termux on Android.
+
+** END JUNE 23rd 2020 UPDATE **
+
 ** UPDATE JUNE 22nd 2020 **
 
 I have now included sfactorint(num) which utilizes Alperton's ECM. Some caveates. This works under ubuntu and should
