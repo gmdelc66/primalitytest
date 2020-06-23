@@ -4,7 +4,7 @@ Implementation. ( And a new repo coming soon using Alperton's ECM )
 
 To use this library simply do: from larsprime import *
 
-** UPDATE JUNE 22nd **
+** UPDATE JUNE 22nd 2020 **
 
 I have now included sfactorint(num) which utilizes Alperton's ECM. Some caveates. This works under ubuntu and should
 with other distributions, but not under OSX due to a compiler issue. 
@@ -52,7 +52,7 @@ under linux.
     [972033825117160941379425504503, 650655447295098801102272374367]
     Out[5]: [972033825117160941379425504503, 650655447295098801102272374367]
 
-
+** END JUNE 22nd 2020 UPDATE **
 
 You will most likely be using fuzzy_factorp2_factorise(num) but there are many different modules included.
 
