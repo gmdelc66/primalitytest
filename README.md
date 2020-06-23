@@ -55,6 +55,32 @@ under linux.
     Alperton ECM Success
     [972033825117160941379425504503, 650655447295098801102272374367]
     Out[5]: [972033825117160941379425504503, 650655447295098801102272374367]
+    
+To show more of the power of Alpertons Engine here are two number we factor in less than 2 minutes: 
+
+    In [57]: sfactorint(random_powers_of_2_prime_finder(125, withstats=False)*random_powers_of_2_prime_finder(125, withstats=False))                                               
+    Attempting to factorise: 1071550297260944289721264733201372325018796026439823716133100011628159597217  
+    [] 1071550297260944289721264733201372325018796026439823716133100011628159597217
+    Attempting  to factorise 1071550297260944289721264733201372325018796026439823716133100011628159597217 with POLLARD_BRENT
+    Attempting to factorise 1071550297260944289721264733201372325018796026439823716133100011628159597217 with Alperton ECM
+    Alperton ECM Success
+    [33010216959086694408014119851159034909, 32461170994090650736291845825264822613]
+    Out[57]: 
+    [33010216959086694408014119851159034909,
+    32461170994090650736291845825264822613]
+    # About 2 minutes to factor (76 digit number)
+
+    In [58]: sfactorint(random_powers_of_2_prime_finder(75, withstats=False)*random_powers_of_2_prime_finder(150, withstats=False))                                                
+    Attempting to factorise: 8804193098709564232326493425921587427217376241095831209316118109547
+    [] 8804193098709564232326493425921587427217376241095831209316118109547
+    Attempting  to factorise 8804193098709564232326493425921587427217376241095831209316118109547 with POLLARD_BRENT
+    Attempting to factorise 8804193098709564232326493425921587427217376241095831209316118109547 with Alperton ECM
+    Alperton ECM Success
+    [935014548440225175815525480974308169870487261, 9416102790482313143527]
+    Out[58]: [935014548440225175815525480974308169870487261, 9416102790482313143527]
+    # Less than a minute factorization
+
+To use random_powers_of_2_prime_finder use: from larsprime import random_powers_of_2_prime_finder. It cretaes an equtaion to make the prime number which can be seen via withstats=True, instead of finding a random prime and looking for the next prime.
 
 ** END JUNE 22nd 2020 UPDATE **
 
