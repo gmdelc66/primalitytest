@@ -14,6 +14,8 @@ under ipython3, use: from larsprime import sfactorint
 
 And have the same capabalities as Alperton's ECM Library! On OSX, linux, and termux on Android.
 
+Special thanks to the Alperton maintainers for helping me get this compiled using the github issues system. 
+
 ** END JUNE 23rd 2020 UPDATE **
 
 ** UPDATE JUNE 22nd 2020 **
