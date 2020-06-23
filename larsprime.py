@@ -10,7 +10,9 @@
 
 import math
 import random
-
+import re
+import sys
+from subprocess import Popen, PIPE
 
 def SieveOfEratosthenes(n):  
       
@@ -1403,7 +1405,6 @@ def find_prime_evens_factorise(hm, offset=-2):
     y = Xploder(y) -offset
   return hm, j, y.bit_length(), y, temp, prevtemp
 
-
 def pollard_brent_lars_opt(n, limit=21):
   if n % 2 == 0: return 2
   if n % 3 == 0: return 3
@@ -2077,4 +2078,199 @@ def eea(a, b):
         return (0, 1, b)
     x = eea(b % a, a)
     return (x[1] - b // a * x[0], x[0], x[2])
+
+def divsqrt(n):
+    x = n
+    y = (x + 1) // 2
+    while y < x:
+        x = y
+        y = (x + n // x) // 2
+    return x
+
+
+""" Currently this only runs under unix ( I tested under Ubuntu), not OSX yet. I opened ticket
+    https://github.com/alpertron/calculators/issues/16  with Alperton, so hopefully this gets
+    fixed soon. sfactorint will soon be in it's own repo and will be pip installable. for now
+    to use you must do the following commands from the primalitity git clone:
+      cd calculators
+      make
+    
+    These extra steps are worth it, sfactor can  then factor with Alperton ECM now, and it still
+    uses it's underlying engine to factor numbers that ECM cannot which are included in 
+    awesomenumberswecanfactor.txt and secretmessage.py
+
+    Please execuse the lack of a pip install and non OSX compilation. i'm working with Alperton's
+    creators with an open issue and am working on making a pip install verssion of sfactorint. 
+    I include this manual method so you can get the full features of Alpertons ECM for factorization
+    using python and i think you'll find the manual steps worth it. Thanks again and keep waiting 
+    soon this will all be done automatically by an installer.
+"""
+
+
+def sfactorint(hm, returnwithpsuedoprimeresults=False):
+   print(f"Attempting to factorise: {hm}")
+   b = num = hm
+   vv = []
+   lprime = False
+   larstest = [-2, -1, 0, 1, 2]
+   while larsprimetest(num) == False and num != 1:
+     for x in larstest:
+       b = get_factor_lars_prime(num, x)[0]
+       if larsprimetest(b) == True:
+         lprime = True
+         break
+     if larsprimetest(b) == False:
+       factors = sget_factors_lars_factorise(b)
+       if factors == 0:
+          print ("Could not factor due to ecm not being compiled")
+          return 0
+       for xx in factors:
+           num = num // xx
+           if returnwithpsuedoprimeresults == False:
+             vv.append(xx)
+           elif returnwithpsuedoprimeresults == True:
+             vv.append((xx, larsprimetest(xx)))
+     else:
+           num = num // b
+           if returnwithpsuedoprimeresults == False:
+              vv.append(b)
+           elif returnwithpsuedoprimeresults == True:
+              vv.append((b, larsprimetest(b)))
+     #if returnwithpsuedoprimeresults == False:
+     #   vv.append(b)
+     #elif returnwithpsuedoprimeresults == True:
+     #   vv.append((b, larsprimetest(b)))
+   if num != 1:
+     if lprime == True:
+       if returnwithpsuedoprimeresults == False:
+          vv.append(num)
+       elif returnwithpsuedoprimeresults == True:
+          vv.append((num, larsprimetest(num)))
+     elif lprime == False:
+       if returnwithpsuedoprimeresults == False:
+          vv.append(b)
+       elif returnwithpsuedoprimeresults == True:
+          vv.append((b, larsprimetest(b)))
+   #print(vv)
+   return vv
+
+
+def sget_factors_lars_factorise(hm, offset=-2):
+   num = hm
+   vv = []
+   while larsprimetest(num // 1) != True:
+     print(vv, num)
+     a = sfind_prime_evens_factorise(num, offset)
+     if a == 0:
+        return 0
+     if type(a[5]) == list:
+        vv.extend(a[5])
+        for xx in a[5]:
+           num = num // xx
+        break
+     #print(a)
+     if a[5] == 0:
+       vv.append(a[1])
+     elif a[5] == 2:
+       if num % 2 == 0:
+         vv.append(a[5])
+       else:
+         vv.append(a[3])
+     elif a[5] == 3:
+       if num % 2 == 0:
+          vv.append(2)
+       elif num % 3 == 0:
+          vv.append(3)
+       elif num % 5 == 0:
+          vv.append(5)
+       elif num % a[3] == 0:
+          vv.append(a[3])
+     else:
+       vv.append(a[5])
+     print(vv)
+     num = num // vv[-1]
+   if larsprimetest(num):
+     vv.append(num)
+   print(vv)
+   return vv
+
+
+def sfind_prime_evens_factorise(hm, offset=-2):
+  y = 3
+  prevtemp = 3
+  if larsprimetest(hm):
+     print(f"{hm} is already prime")
+     return hm
+  while True:
+    if y.bit_length() > hm.bit_length() -1:
+      if len(str(hm)) < 17:
+         print(f"Attempting  to factorise {hm} with trial division")
+         prevtemp = trial_division(hm)
+         if prevtemp != hm:
+            print(f"Trial Division Success")
+            break
+         else:
+           print(f"Attempting  to factorise {hm} with POLLARD_BRENT")
+           while prevtemp != hm:
+              prevtemp = pollard_brent_lars_opt(hm)
+           print(f"POLLARD_BRENT Success")
+      else:
+         print(f"Attempting  to factorise {hm} with POLLARD_BRENT")
+         prevtemp = pollard_brent_lars_opt(hm)
+      if hm == prevtemp:
+         print(f"Attempting to factorise {hm} with Alperton ECM")
+         try:
+           process = Popen(["calculators/ecm", str(hm)], stdout=PIPE)
+         except:
+           print()
+           print()
+           print("caclulators/ecm doesn't exist")
+           print("You can fix this by:")
+           print("cd calculators")
+           print("make")
+           print()
+           print("This should create ecm and you'll be able to use sfactorint.")
+           print("Currently this works under ubuntu and should work with other")
+           print("distributions. It does not work with OSX, i have an open")
+           print("ticket with Alperton about this.")
+           print()
+           print("The future version of this program will be moved to another repo:")
+           print("sfactorint which will automatically compile Alpertons ecm so this")
+           print("manual intervention is only temporary. I only included it because")
+           print("i thought those that would take time to do the manual steps would")
+           print("find it worth it to get access to Alpertons ECM factoring")
+           return 0 
+         (output, err) = process.communicate()
+         exit_code = process.wait()
+
+         factors = output.decode().split('=')[1].split('<')[0].split('*')
+
+         prevtemp = []
+         for xx in factors:
+           factorsstring = re.sub(r'\([^)]*\)', '',xx)
+         prevtemp.append(int(factorsstring.replace(' ', '')))
+
+         #prevtemp = siqs_factorise(hm)
+         print("Alperton ECM Success")
+      else:
+            print("POLLARD BRENT Success")
+      break
+    j = powers(hm, y)
+    temp = j
+    if j != 1 and j != 0:
+      temp = j
+      temp = hm % temp
+      if temp == 0:
+         prevtemp = temp
+         print("c: break")
+         break
+      while temp != 1 and temp != 0:
+         prevtemp = temp
+         temp = hm % temp
+    if temp == 0:
+      print("h: break")
+      break
+    y = Xploder(y) -offset
+  return hm, j, y.bit_length(), y, temp, prevtemp
+
 
