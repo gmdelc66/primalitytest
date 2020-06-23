@@ -4,6 +4,56 @@ Implementation. ( And a new repo coming soon using Alperton's ECM )
 
 To use this library simply do: from larsprime import *
 
+** UPDATE JUNE 22nd **
+
+I have now included sfactorint(num) which utilizes Alperton;s ECM. Some caveates. This works under ubuntu and should
+with other distributions, but not under OSX due to a compiler issue. 
+
+To use you must do the following manual commands( my apologies on this, i expect to make sfactorint into a new repo
+thta does this all automatically, but you will find it worth your while if you take the time to do it under linux.
+
+from the primality directory clone, you must:
+
+cd calculators
+
+make
+
+cd ..
+
+then run ipython3  and 
+
+from larsprime import *
+
+All other libraries will still work without doing this, but sfactorint will not unless you perform these steps. For 
+those who take the time under linux to do this you will get access to Alperton's Amazing factorizatoin engine using
+python. Here are some example factorizations with it. Alperton is amazing and now you can use this engine via ipython3
+under linux.
+
+    In [4]: sfactorint(2**320-27)                                                                                                                                                  
+    Attempting to factorise: 2135987035920910082395021706169552114602704522356652769947041607822219725780640550022962086936549
+    [] 19984846359923304131572718704765894820156942676449198185279536798495814090816533354649
+    Attempting  to factorise 19984846359923304131572718704765894820156942676449198185279536798495814090816533354649 with POLLARD_BRENT
+    Attempting to factorise 19984846359923304131572718704765894820156942676449198185279536798495814090816533354649 with Alperton ECM
+    Alperton ECM Success
+    [6541567246167498436733698138291429826932034878522265977444975810201, 3055054791591694849]
+    Out[4]: 
+    [433,
+    2591,
+    95267,
+    6541567246167498436733698138291429826932034878522265977444975810201,
+    3055054791591694849]
+
+    In [5]: sfactorint(632459103267572196107100983820469021721602147490918660274601)                                                                                               
+    Attempting to factorise: 632459103267572196107100983820469021721602147490918660274601
+    [] 632459103267572196107100983820469021721602147490918660274601
+    Attempting  to factorise 632459103267572196107100983820469021721602147490918660274601 with POLLARD_BRENT
+    Attempting to factorise 632459103267572196107100983820469021721602147490918660274601 with Alperton ECM
+    Alperton ECM Success
+    [972033825117160941379425504503, 650655447295098801102272374367]
+    Out[5]: [972033825117160941379425504503, 650655447295098801102272374367]
+
+
+
 You will most likely be using fuzzy_factorp2_factorise(num) but there are many different modules included.
 
 This library has evolved from a primality test to a factorization engine, so i hope you enjoy the results. It can
