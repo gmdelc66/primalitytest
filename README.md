@@ -24,6 +24,10 @@ then run ipython3  and
 
 from larsprime import *
 
+or
+
+from larsprime import sfactorint
+
 All other libraries will still work without doing this, but sfactorint will not unless you perform these steps. For 
 those who take the time under linux to do this you will get access to Alperton's Amazing factorizatoin engine using
 python. Here are some example factorizations with it. Alperton is amazing and now you can use this engine via ipython3
