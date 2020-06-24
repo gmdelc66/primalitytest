@@ -109,7 +109,7 @@ def ecm(N):
            print("make")
            print()
            print("This should create ecm and you'll be able to use sfactorint.")
-           print("Currently this works under linux, OSX, termux android app and
+           print("Currently this works under linux, OSX, termux android app and")
            print("other distributions.")
            print()
            print("The future version of this program will be moved to another repo:")
