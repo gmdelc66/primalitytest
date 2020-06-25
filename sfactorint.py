@@ -282,3 +282,126 @@ def find_prime_evens_factorise(hm, offset=-2, withstatus=False):
       break
     y = Xploder(y) -offset
   return hm, j, y.bit_length(), y, temp, prevtemp
+
+
+""" Fastest modulus reduction of powers of two which i discovered while studying primes. Other shortcuts may 
+    exist i'm looking for them too to speed up my modulus reductions above. This is the same as doing the
+    following:
+    1008%512
+    # 496
+    496%256
+    # 240
+    240%128
+    # 112
+    112%64
+    # 48
+    48%32
+    # 16
+    16%16 
+    # 0
+    With lars_last_modulus_powers_of_two(1008) you will get the answer 16 immediately. This works for all numbers
+    walking down a modulus powwers of two tree without having to walk down the tree.
+    
+    In [2601]: lars_last_modulus_powers_of_two(1008)                                                                                                
+    Out[2601]: 16
+"""
+
+def lars_last_modulus_powers_of_two(hm):
+   return math.gcd(hm, 1<<hm.bit_length())
+
+""" pow_mod_p2() is much faster than pow() for numbers with a modulus of the powers of 2 
+
+    Example speed increase:
+
+    In [760]: import time   
+     ...: start = time.time()   
+     ...: pow_mod_p2(1009732533765251, sinn, 1<<((sinn.bit_length()-1)))  
+     ...: end = time.time()   
+     ...: print(end-start) 
+     ...:                                                                                                                                                                                          
+     1.6118049621582031
+
+     In [761]: import time   
+     ...: start = time.time()   
+     ...: pow(1009732533765251, sinn, 1<<((sinn.bit_length()-1)))  
+     ...: end = time.time()   
+     ...: print(end-start)                                                                                                                                                                         
+
+     5.584430932998657
+
+     where sinn is a 4096 byte prime number.
+
+"""
+
+def pow_mod_p2(x, y, z):
+    "Calculate (x ** y) % z efficiently."
+    number = 1
+    while y:
+        if y & 1:
+            number = modular_powerxz(number * x, z)
+        y >>= 1
+        x = modular_powerxz(x * x, z)
+    return number
+
+""" modular_powerxz is only for use for fast modulus of powers of 2 numbers, upto the offset of -2 to +2.
+    It offers 4-5x speed faster than straight % mod or pow(x,y,z) where z is a modulus that is within
+    the powers of 2 and an offset up to -2 to +2 away.
+"""
+
+def modular_powerxz(num, z, bitlength=1, offset=0):
+   xpowers = 1<<(z.bit_length()-bitlength)
+   if ((num+1) & (xpowers-1)) == 0:
+      return num%xpowers
+   elif offset == -2:
+      return ( num & ( xpowers -bitlength)) + 2
+   elif offset == -1:
+      return ( num & ( xpowers -bitlength)) + 1
+   elif offset == 0:
+      return ( num & ( xpowers -bitlength))      
+   elif offset == 1:
+      return ( num & ( xpowers -bitlength)) - 1
+   elif offset == 2:
+      return ( num & ( xpowers -bitlength)) - 2
+
+""" Here is a random powers of 2 prime finder. Instead of a traditional random number find and next_prime find, 
+    It finds a random number that passes the lars_last_modulus_powers_of_two and checks if it's answer which is 
+    (randomnum//2): pow(answer, 2 ** powersnumber-1, 2 ** powersnumber) passes an is prime test and continues until it
+    finds a prime number as the answer.
+
+   Here is an example if withstats is True:
+
+   In [8376]: random_powers_of_2_prime_finder(500,withstats=True)                                                                                                         
+
+   Out[8376]: 'pow(666262300770453383069409586449388105866418680981109533955324455061042093893855903254102021029841224158334524986498089277831523295501050122115012763111, 2**500-1, 2**500) = 896210381184287864297818969694142462892609158257898833237071849213575043971828530532195572986889116466526908364900915586299134290481831272303561385431'
+
+
+    It returns an equation showing the prime result, here is another example:
+    
+    In [8436]: random_powers_of_2_prime_finder(100,withstats=True)                                                                                                         
+    Out[8436]: 'pow(21228499098241391741518188355, 2**100-1, 2**100) = 648150045025216535003765994859'
+ 
+    Notice the answer is an equation that finds a prime.
+    
+"""
+
+def random_powers_of_2_prime_finder(powersnumber, primeanswer=False, withstats=True):
+    while True:
+       randnum = random.randrange((1<<(powersnumber-1))-1, (1<<powersnumber)-1,2)
+       while lars_last_modulus_powers_of_two(randnum) == 2 and larsprimetest(randnum//2) == False:
+         randnum = random.randrange((1<<(powersnumber-1))-1, (1<<powersnumber)-1,2)
+       answer = randnum//2
+       # This option makes the finding of a prime much longer, i would suggest not using it as 
+       # the whole point is a prime answer. 
+       if primeanswer == True:
+          if larsprimetest(answer) == False:
+            continue
+       powers2find = pow_mod_p2(answer, (1<<powersnumber)-1, 1<<powersnumber)
+       if larsprimetest(powers2find) == True:
+          break
+       else:  
+          continue
+    if withstats == False:
+      return powers2find
+    elif withstats == True:
+      return f"pow_mod_p2({answer}, 2**{powersnumber}-1, 2**{powersnumber}) = {powers2find}"
+    return powers2find
