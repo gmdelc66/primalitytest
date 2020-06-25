@@ -36,7 +36,7 @@ def primes_sieve2(limit):
                 a[n] = False  
 
 def larsprimetest(hm):
-   if hm == 1:
+   if hm == 1 or hm == 0:
       return False
    larstest = [-2, -1, 0, 1, 2]
    primereducer = list(primes_sieve2(hm.bit_length()))
