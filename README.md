@@ -1,6 +1,6 @@
 # primalitytest
 Test the primality of numbers ( non probabilistic test)  and now factor with BRENT_POLLARD AND SKOLLMAN's SIQS
-Implementation. ( And a new repo coming soon using Alperton's ECM )
+or Alperton's ECM Implementation. ( And a new repo coming soon using just my p2 engine and Alperton's ECM )
 
 To use this library simply do: from sfactorint import p2ecm or from sfactorint import *
 
