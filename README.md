@@ -6,7 +6,10 @@ To use this library simply do: from sfactorint import p2ecm or from sfactorint i
 
 To compile ecm, cd calculators, and run make. Then cd ..  
 run ipython3 and do: from sfactorint import p2ecm or from sfactorint import *
+
 You can factor the number in the June 25th update without compiling ecm.
+
+I'm working on making this package (sfactorint) pip installable and auto compilable. This should be complete within a week.
 
 ** UPDATE JUNE 25th 2020 **
 
