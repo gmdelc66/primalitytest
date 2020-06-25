@@ -405,3 +405,71 @@ def random_powers_of_2_prime_finder(powersnumber, primeanswer=False, withstats=T
     elif withstats == True:
       return f"pow_mod_p2({answer}, 2**{powersnumber}-1, 2**{powersnumber}) = {powers2find}"
     return powers2find
+
+""" This module will find the next prime for any number input
+"""
+
+def lars_next_prime(hm):
+   if hm == 1:
+      return 2
+   if hm == 2:
+      return 3
+   if hm % 2 == 0:
+      hm = hm + 1
+   hm += 2
+   while larsprimetest(hm) == False:
+      hm += 2
+   return hm
+
+def inv_mod(a, m):
+    """Return the modular inverse of a mod m."""
+    return eea(a, m)[0] % m
+
+
+def eea(a, b):
+    """Solve the equation a*x + b*y = gcd(a,b).
+    Return (x, y, +/-gcd(a,b)).
+    """
+    if a == 0:
+        return (0, 1, b)
+    x = eea(b % a, a)
+    return (x[1] - b // a * x[0], x[0], x[2])
+
+def divsqrt(n):
+    x = n
+    y = (x + 1) // 2
+    while y < x:
+        x = y
+        y = (x + n // x) // 2
+    return x
+
+
+"""
+    Some notes on some interesting numbers you can factor using Alperton's ECM in less than 5 minutess:
+
+In [17]: p2ecm(478914029583776654393586833507405839427279987994989595626604752711166787610817085841216764357253925173015921480794967938828124531571395336269499745143098221674607335755101
+    ...: 657218049401971146749389204599096428544472036518538414645082215410032036727060172461902248475794992461616942383430987862227751404336226569807171854134894903247156157765181721612
+    ...: 7077)                                                                                                                                                                            
+Out[17]: 
+[19803055408042801,
+ 101214811811014007,
+ 195255350714315173,
+ 241893620990971331,
+ 260900152026195359,
+ 288199189711896241,
+ 301722409774359611,
+ 324684670016446711,
+ 391954863902091397,
+ 406382958913447981,
+ 436266487923528203,
+ 438324665338778623,
+ 569667169632860531,
+ 609462982327593677,
+ 783103465600344283,
+ 833236984517601799,
+ 845737504395374167,
+ 1016353429009857401,
+ 1069060724147445871,
+ 1083076784676925097]
+
+"""
