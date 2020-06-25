@@ -2,7 +2,23 @@
 Test the primality of numbers ( non probabilistic test)  and now factor with BRENT_POLLARD AND SKOLLMAN's SIQS
 Implementation. ( And a new repo coming soon using Alperton's ECM )
 
-To use this library simply do: from larsprime import *
+To use this library simply do: from sfactorint import p2ecm or from sfactorint import *
+
+To compile ecm, cd calculators, and run make. Then cd ..  
+run ipython3 and do: from sfactorint import p2ecm or from sfactorint import *
+You can factor the number in the June 25th update without compiling ecm.
+
+** UPDATE JUNE 25th 2020 **
+
+I updated secretmessage.py. run python3 secretmessage.py to find out why you need to download/clone primality test now!
+Combined with Alperton's ECM, this is simply the best factorization engine i know of for python. Get the power of Alpertons
+ECM SIQS ENGINE and my P2 ENGINE to factor amazing numbers! Try factoring this with your favorite engine:
+
+59893611576109667745591501557768518524757716237069644258704861576242171401997307866879683323070966660204404152184193810674102156666657370390138530234649080171855713105130196952359459038561431989638152182117995184731466993342885255931809452953066180362252477157103441113001094605527343278901414111254455206926645055846351057616910772608479787438025683542018487410813110401975388130870408240200388515540931241753871580499716942033016530617650880195162728159984102206575546189706186608379472073452619741393751338631
+
+and see why you need primalitytest!
+
+** END JUNE 25th UPDATE **
 
 ** UPDATE JUNE 24th 2020 **
 
