@@ -5,7 +5,7 @@
 # seconds once you find it's secret message about it's security.
 # Run on the cmd line by: python3 secretmessage.py
 # Try factoring this (N) number at https://www.alpertron.com.ar/ECM.HTM
-#
+# the same engine that we use in sfactorint's p2ecm
 
 from sfactorint import p2ecm, inv_mod
 
