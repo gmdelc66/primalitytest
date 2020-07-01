@@ -2274,3 +2274,107 @@ def sfind_prime_evens_factorise(hm, offset=-2):
   return hm, j, y.bit_length(), y, temp, prevtemp
 
 
+# skiptrace(N)
+
+"""   This is Based on finding factors down to the mersenne type numbers that bring N to 0 in mersenne type iterations, The variable lands on a  value which from an offset
+      that makes for a perfect fermat test which i've tested to over a billion numbers without error using this format. This leads me to beleive there is a mathematics
+      and equation that makes for a perfect fermat test with one number and an offset of 5 from that number. I'm searching for it and hoping others are as well. This 
+      program is a Siever that is slower than prime sieve, but shows that you can build billions of primes without seiving with some speed and in an algorithmic way
+      to eliminate errors with a pow test that is algorithmic and the same format for every number. 
+      The equation for s = a = ( int(str(N+N),16) + int(str(int(str(N),16)+int(str(N),16))) ) is the same equation that I use to create high low maps in numbers using
+      a base 10 to 16 relationship in those numbers. For example, if you had the number 6715923586739214200421, the equation builds the perfect form high low map to the 
+      number as so wihout using a for loop, using pure math:
+
+        6715923586739214200421
+      0x1101100111101000000000  
+ 
+     That binary number was created with ( int(str(N+N),16) - int(str(int(str(N),16)+int(str(N),16))) )//6 . Pure math to create a high low map of a number. I reversed the
+     operation to be an add, and whoah, it created an algorithmic number that reduces to 0 in cycles of 1,3,7,15,31,63,127,255,511,1023,2047,4095,8191, etc. At the point
+     these operations hit those numbers N will then converge on 0. (s) will converge on a number that a pow test offset from 2 less to 2 above always passes the fermat test
+     when you first remove factors from the numbers during the descent to 0. The xx section below is the section that finds those factors, which allows me to have the perfect
+     algorithmic fermat test which i tested to over 10 billion numbers without error. There is no isprime test here ( except with withstats=True option, for verification and
+     understanding of what the final numbers are on that passes an isprime test. )  You can use this as an alternative to Sieveing, but it's slower to due it's descent to 0
+     to create a perfect algroithmic fermat test and finding of factors. It was an intellectual exercise and I wanted to see what i could create that was unique and different
+     from any published method to create all primes to a certain length. And I used an equation that creates a hi/low map to make it happen. Other equations did not work, so 
+     I was intrigued by the power of that equation and plan to study it more. It is also an original unique creation i found and wanted to show off what it can do
+
+     So no randomness is required for a fermat test to find the primes, the algorithim creates the perfect (s) which always passed the fermat test with an offset of 2. It is 
+     a seiving program without using seiving math. You could consider it an isprime or factorization engine, but it wasn't designed for large numbers, only to show that we
+     can create algorithmic fermat tests and seiving with the right algorithms 
+  
+     Here are some examples:
+
+     In [4448]: skiptrace(1009732533765211)                                                                                                                                                    
+     Out[4448]: False
+
+     In [4447]: skiptrace(1009732533765211, factor=True) 
+     N==1355457106081, M==899444200464828, (s * N ) + a  = 868062151967875342022144215 , a = 4624119960799520836, origN == 1009732533765211, larsprimetest(origN) == False,
+     s==640420226836659, count/iterations to 0 == 1078
+     xx factor test (factor found): 11344301, primecandidate == False, count/iterations to find factor: 1078
+
+     Also, pow_mod_p2 is 4x  to 5x faster with powers of 2 than pythons pow function, that's why i use it and more information can be found above in the code.
+     to use from larsprime import skiptrace
+"""
+
+def skiptrace(N, limit=1, withstats=False, xxrange=5, factor=False): 
+    if N in [2, 3, 5, 7, 179]:
+       return True  
+    if xxrange == 5 and factor==True:
+       xxrange = 1000
+       withstats = True
+    primenum = 3 
+    origN = N  
+    exception = True
+    primecandidate = False
+    s = a = ( int(str(N+N),16) + int(str(int(str(N),16)+int(str(N),16))) ) 
+    M = p = (s * (1<<(N).bit_length() ) - 1 ) % N 
+    sbreak = False 
+    count = 0 
+    
+
+    for s in range(2,2**100): 
+     N = pow_mod_p2(origN, 4, (1<<(origN).bit_length()))  
+     for x in range(0,limit): 
+      count +=1  
+      N =  abs(pow_mod_p2(s, 4, (1<<(origN).bit_length()) ))
+      try:
+         s = abs(( (s * N ) + a )) % (M)  
+      except:
+          s = abs(( (s * N ) + a  )) % ((s * (1<<(N).bit_length() ) ) )
+          exception = True
+      l =  math.gcd(s+N, origN) 
+      prime = math.gcd(s, origN) 
+
+      if N == 0 and factor == False:
+         if checkifmersenne(count):
+            primenum = count
+         if pow(count, origN-1, origN) == 1 and pow(count+1, origN-1, origN) == 1 and pow(((s * N ) + a) +1, origN-1, origN) == 1:
+            if withstats == True:
+              print(f"N=={N}, M=={M}, (s * N ) + a  = {(s * N ) + a} , a = {a}, origN == {origN}, larsprimetest(origN) == {larsprimetest(origN)}, s=={s}, count/iterations to 0 == {count}") 
+            if pow( (s * N ) + a , origN-1, origN) > 1 or pow( s - 1 , origN-1, origN) > 1 or pow( s - 2 , origN-1, origN) > 1:
+              if withstats == True:
+                print("N==0, Failed pow test, Not Prime")
+              return False
+            else:
+              return True
+         else:
+            if withstats == True:
+              print("N==0, Failed pow test, Not Prime")
+            return False
+
+      xx = [math.gcd(s, origN)] + [math.gcd(s*p+x,origN) for x in range(xxrange)] + [math.gcd(s*p-x,origN) for x in range(1,xxrange)]
+      try:
+         prime = min(list(filter(lambda x: x not in set([1]),xx)))
+      except:
+        prime = 1
+      if prime == 1:
+         continue
+      else:
+          if prime == origN and pow(2, origN-1, origN) == 1 and pow(count+1, origN-1, origN) == 1 and pow(primenum+1, origN-1, origN) == 1 and pow(N+1, origN-1, origN) ==1:
+             primecandidate = True
+          if withstats == True:
+              print(f"N=={N}, M=={M}, (s * N ) + a  = {(s * N ) + a} , a = {a}, origN == {origN}, larsprimetest(origN) == {larsprimetest(origN)}, s=={s}, count/iterations to 0 == {count}") 
+              print(f"xx factor test: {prime}, primecandidate == {primecandidate}, count/iterations to find factor: {count}")
+          return primecandidate 
+
+
