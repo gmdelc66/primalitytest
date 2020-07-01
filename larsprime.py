@@ -2274,6 +2274,12 @@ def sfind_prime_evens_factorise(hm, offset=-2):
   return hm, j, y.bit_length(), y, temp, prevtemp
 
 
+def checkifpowersof2(N):
+  return (N & (N-1) == 0) and N != 0
+
+def checkifmersenne(N):
+  return (N+1 & (N) == 0) and N != 0
+
 # skiptrace(N)
 
 """   This is Based on finding factors down to the mersenne type numbers that bring N to 0 in mersenne type iterations, The variable lands on a  value which from an offset
