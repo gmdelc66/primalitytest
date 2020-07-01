@@ -77,6 +77,22 @@ This few steps are worth it as Alperton's ECM engine is awesome and mine can fac
 off the powers of 2 that ECM cannot yet. As far as i know, with Alpertons and my library, you have the fastest (or one of the) best python factorization engines.
     
 ** END JUNE 24th UPDATE **
+
+** Update JUNE 30th UPDATE **
+
+I added skiptrace(N) to larsprime. This was an intellectual exercise in created a perfect form fermat test algorithmically to see if i could create a fermat
+test that didn't require random cycles to pass an isprime test. It worked! and this is the result. Due to me having to cycle N to 0 through an iterative
+process, it's not very fast and not designed for real factoring, but it's worth reading and looking at to see an algorithm that produces a set of fermat
+tests that always work based on (s) once (N) reaches 0.
+
+To use, from larsprime import skiptrace
+
+For real factoring use: 
+
+from sfactoring import p2ecm. 
+
+That uses Alperton's ECM Engine and this is the fasted python factorization engine because it uses
+the Alpertons Library. It also factors very large numbers fast. Once you try it you wont use any other factorization engine for python.
     
 ** UPDATE JUNE 23rd 2020 **
 
