@@ -1,3 +1,14 @@
+** UPDATE JULY 1st 2020 **
+
+I made a video here on how to use p2ecm ( from sfactorint import ecm ). It's two minutes long and you can see the power
+of p2ecm in Termux on Android. It is of course designed for use in ipython3 on OSX or Linux, but the video is 2 minutes
+long and shows you how powerful an Android is at factorization using p2ecm! I hope you enjoy the video and it convinces 
+you to use sfactorint and p2ecm
+
+https://www.reddit.com/r/Python/comments/hgos9z/created_a_python_library_that_interfaces_with/
+
+** END JULY 1st UPDTATE **
+
 # primalitytest
 Test the primality of numbers ( non probabilistic test)  and now factor with BRENT_POLLARD AND SKOLLMAN's SIQS
 or Alperton's ECM Implementation. ( And a new repo coming soon using just my p2 engine and Alperton's ECM )
