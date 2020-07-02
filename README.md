@@ -12,6 +12,9 @@ Here's a 73 digit factor that finishes in less than a minute:
 In [394]: p2ecm(9823759579357932579835794725987895789235792857982357983579843759827543257)                                                                     
 Out[394]: [67, 59, 61, 61129, 5156073806426069497, 1048609596163197787573, 123265298417148307022921]
 
+I also added a Fast Miller Rabin Primality test called sfactorint_isprime(N). To use:
+from sfactorint import sfactorint_isprime
+
 ** END JULY 1st UPDTATE **
 
 # primalitytest
