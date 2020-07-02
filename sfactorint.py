@@ -387,16 +387,16 @@ def modular_powerxz(num, z, bitlength=1, offset=0):
 def random_powers_of_2_prime_finder(powersnumber, primeanswer=False, withstats=True):
     while True:
        randnum = random.randrange((1<<(powersnumber-1))-1, (1<<powersnumber)-1,2)
-       while lars_last_modulus_powers_of_two(randnum) == 2 and larsprimetest(randnum//2) == False:
+       while lars_last_modulus_powers_of_two(randnum) == 2 and sfactorint_isprime(randnum//2) == False:
          randnum = random.randrange((1<<(powersnumber-1))-1, (1<<powersnumber)-1,2)
        answer = randnum//2
        # This option makes the finding of a prime much longer, i would suggest not using it as 
        # the whole point is a prime answer. 
        if primeanswer == True:
-          if larsprimetest(answer) == False:
+          if sfactorint_isprime(answer) == False:
             continue
        powers2find = pow_mod_p2(answer, (1<<powersnumber)-1, 1<<powersnumber)
-       if larsprimetest(powers2find) == True:
+       if sfactorint_isprime(powers2find) == True:
           break
        else:  
           continue
@@ -417,7 +417,7 @@ def lars_next_prime(hm):
    if hm % 2 == 0:
       hm = hm + 1
    hm += 2
-   while larsprimetest(hm) == False:
+   while sfactorint_isprime(hm) == False:
       hm += 2
    return hm
 
@@ -442,6 +442,50 @@ def divsqrt(n):
         x = y
         y = (x + n // x) // 2
     return x
+
+
+def ltrailing(N):
+    return len(str(bin(N))) - len(str(bin(N)).rstrip('0'))
+
+def MillerRabin(N, primetest, iterx, powx, withstats=False): 
+  primetest = pow(primetest, powx, N) 
+  if withstats == True:
+     print("first: ",primetest) 
+  if primetest == 1 or primetest == N - 1: 
+    return True 
+  else: 
+    for x in range(0, iterx-1): 
+       primetest = pow(primetest, 2, N) 
+       if withstats == True:
+          print("else: ", primetest) 
+       if primetest == N - 1: return True 
+       if primetest == 1: return False 
+  return False 
+
+def sfactorint_isprime(N, withstats=False):
+    if N == 2:
+      return True
+    if N % 2 == 0:
+      return False
+    if N < 2:
+        return False
+    iterx = ltrailing(N - 1)
+    """ This k test is an algorithmic test builder instead of using
+        random numbers. The offset of k, from -2 to +2 produces pow tests
+        that fail or pass instead of having to use random numbers and more
+        iterations. All you need are those 5 numbers from k to get a 
+        primality answer. 
+    """
+    k = pow_mod_p2(N, (1<<N.bit_length())-1, 1<<N.bit_length()) - 1
+    t = N >> iterx
+    tests = [k-2, k-1, k, k+1, k+2]
+    for primetest in tests:
+        if primetest >= N:
+            primetest %= N
+        if primetest >= 2:
+            if MillerRabin(N, primetest, iterx, t, withstats) == False:
+                return False
+    return True
 
 
 """
